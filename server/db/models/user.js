@@ -26,6 +26,19 @@ const User = db.define('user', {
   },
   googleId: {
     type: Sequelize.STRING
+  },
+  billingAddress: {
+    type: Sequelize.STRING
+  },
+  paymentInformation: {
+    type: Sequelize.TEXT
+  },
+  purchaseHistory: {
+    type: Sequelize.ARRAY(Sequelize.TEXT)
+  },
+  role: {
+    type: Sequelize.ENUM('admin', 'engineer', 'user'),
+    defaultValue: 'user'
   }
 })
 
