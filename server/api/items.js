@@ -16,8 +16,11 @@ router.get('/', async (req, res, next) => {
 // GET /api/items/:id
 router.get('/:id', async (req, res, next) => {
   try {
-    const {data: item} = await Item.findByPk(req.params.id)
-    res.send(item)
+    const item = await Item.findByPk(req.params.id)
+    if (item !== null) {
+      res.send(item)
+    }
+    res.sendStatus(404)
   } catch (error) {
     next(error)
   }
@@ -59,8 +62,12 @@ router.delete('/:id', async (req, res, next) => {
         id: req.params.id
       }
     })
-    res.redirect('/items')
+    res.sendStatus(204).redirect('/items')
   } catch (err) {
     next(err)
   }
+})
+
+router.use((req, res, next, err) => {
+  res.sendStatus(err.status)
 })

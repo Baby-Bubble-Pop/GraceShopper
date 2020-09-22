@@ -41,8 +41,6 @@ const carts = [
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
-  console.log(users)
-  console.log(items)
 
   await Promise.all(
     users.map(user => {
