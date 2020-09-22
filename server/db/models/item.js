@@ -17,10 +17,13 @@ const Item = db.define('item', {
     }
   },
   rating: {
-    type: Sequelize.DECIMAL(1, 1),
+    type: Sequelize.DECIMAL(2, 1),
     validate: {
       min: 1,
       max: 5
+    },
+    get() {
+      return parseFloat(this.getDataValue('rating'))
     }
   },
   quantity: {
