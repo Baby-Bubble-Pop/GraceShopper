@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const {User, Item} = require('../db/models')
+const {isAdmin} = require('../utils/securityMiddleware')
 
 module.exports = router
 
@@ -19,15 +20,16 @@ router.get('/:id', async (req, res, next) => {
     const item = await Item.findByPk(req.params.id)
     if (item !== null) {
       res.send(item)
+    } else {
+      res.sendStatus(404)
     }
-    res.sendStatus(404)
   } catch (error) {
     next(error)
   }
 })
 
 // POST /api/items
-router.post('/', async (req, res, next) => {
+router.post('/', isAdmin, async (req, res, next) => {
   try {
     const newItem = await Item.create(req.body)
     res.status(201).send(newItem)
@@ -37,7 +39,7 @@ router.post('/', async (req, res, next) => {
 })
 
 // PUT /api/items/:id
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', isAdmin, async (req, res, next) => {
   try {
     const [updatedItemCount, updatedItem] = await Item.update(req.body, {
       where: {
@@ -55,7 +57,7 @@ router.put('/:id', async (req, res, next) => {
 })
 
 // DELETE /api/items/:id
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', isAdmin, async (req, res, next) => {
   try {
     await Item.destroy({
       where: {
@@ -66,8 +68,4 @@ router.delete('/:id', async (req, res, next) => {
   } catch (err) {
     next(err)
   }
-})
-
-router.use((req, res, next, err) => {
-  res.sendStatus(err.status)
 })

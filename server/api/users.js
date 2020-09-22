@@ -4,10 +4,8 @@ const {isAdmin, isUser} = require('../utils/securityMiddleware')
 
 module.exports = router
 
-
 router.get('/', isAdmin, async (req, res, next) => {
-=======
-// GET /api/users
+  // GET /api/users
   try {
     const users = await User.findAll({
       // explicitly select only the id and email fields - even though
@@ -22,9 +20,7 @@ router.get('/', isAdmin, async (req, res, next) => {
 })
 
 router.get('/:id', isAdmin, async (req, res, next) => {
-=======
-
-// GET /api/users/:id
+  // GET /api/users/:id
 
   try {
     const userData = await User.findByPk(req.params.id, {include: Item})
