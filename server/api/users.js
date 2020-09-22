@@ -3,6 +3,7 @@ const {User, Item} = require('../db/models')
 
 module.exports = router
 
+// GET /api/users
 router.get('/', async (req, res, next) => {
   try {
     const users = await User.findAll({
@@ -16,11 +17,13 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+
+// GET /api/users/:id
 router.get('/:id', async (req, res, next) => {
   try {
     const userData = await User.findByPk(req.params.id, {include: Item})
     res.send(userData.items)
   } catch (error) {
-    console.error(error)
+    next(error)
   }
 })
