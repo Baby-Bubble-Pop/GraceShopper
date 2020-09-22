@@ -23,6 +23,13 @@ const mapState = state => {
     email: state.user.email
   }
 }
+const mapDispatch = dispatch => {
+  return {
+    loadCart(id) {
+      dispatch(getCart(id))
+    }
+  }
+}
 
 export default connect(mapState)(UserHome)
 

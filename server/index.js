@@ -107,7 +107,7 @@ const startListening = () => {
 
 const syncDb = () =>
   db.sync({
-    force: true
+    force: false
   })
 
 async function bootApp() {
