@@ -1,16 +1,66 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {User, Item, Cart} = require('../server/db/models')
+
+const users = []
+const userGenerator = num => {
+  for (let i = 0; i < num; i++) {
+    users.push({
+      email: `${i}@email.com`,
+      password: `${i}`
+    })
+  }
+  return users
+}
+userGenerator(100)
+
+const items = []
+const itemGenerator = num => {
+  for (let i = 0; i < num; i++) {
+    items.push({
+      name: `${i}`,
+      price: `${i}`
+    })
+  }
+  return items
+}
+itemGenerator(100)
+
+const carts = [
+  {itemId: 1, userId: 1},
+  {itemId: 1, userId: 2},
+  {itemId: 1, userId: 3},
+  {itemId: 1, userId: 4},
+  {itemId: 2, userId: 5},
+  {itemId: 3, userId: 5},
+  {itemId: 4, userId: 5},
+  {itemId: 5, userId: 5}
+]
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
+  console.log(users)
+  console.log(items)
 
-  const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
-  ])
+  await Promise.all(
+    users.map(user => {
+      return User.create(user)
+    })
+  )
+
+  await Promise.all(
+    items.map(item => {
+      return Item.create(item)
+    })
+  )
+
+  await Promise.all(
+    carts.map(cart => {
+      return Cart.create(cart)
+    })
+  )
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
