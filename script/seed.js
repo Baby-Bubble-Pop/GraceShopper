@@ -5,7 +5,7 @@ const {User, Item, Cart} = require('../server/db/models')
 
 const users = []
 const userGenerator = num => {
-  for (let i = 0; i < num; i++) {
+  for (let i = 1; i < num; i++) {
     users.push({
       email: `${i}@email.com`,
       password: `${i}`
@@ -17,7 +17,7 @@ userGenerator(100)
 
 const items = []
 const itemGenerator = num => {
-  for (let i = 0; i < num; i++) {
+  for (let i = 1; i < num; i++) {
     items.push({
       name: `${i}`,
       price: `${i}`
@@ -27,11 +27,35 @@ const itemGenerator = num => {
 }
 itemGenerator(100)
 
+const admins = []
+const adminGenerator = num => {
+  for (let i = 1; i < num; i++) {
+    admins.push({
+      email: `admin-${i}@email.com`,
+      password: `admin${i}`
+    })
+  }
+  return admins
+}
+adminGenerator(15)
+
 const carts = [
   {itemId: 1, userId: 1},
+  {itemId: 2, userId: 1},
+  {itemId: 3, userId: 1},
+  {itemId: 4, userId: 1},
   {itemId: 1, userId: 2},
+  {itemId: 3, userId: 2},
+  {itemId: 4, userId: 2},
+  {itemId: 5, userId: 2},
   {itemId: 1, userId: 3},
-  {itemId: 1, userId: 4},
+  {itemId: 1, userId: 3},
+  {itemId: 1, userId: 3},
+  {itemId: 1, userId: 3},
+  {itemId: 2, userId: 4},
+  {itemId: 3, userId: 4},
+  {itemId: 4, userId: 4},
+  {itemId: 5, userId: 4},
   {itemId: 2, userId: 5},
   {itemId: 3, userId: 5},
   {itemId: 4, userId: 5},
@@ -41,27 +65,27 @@ const carts = [
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
-  console.log(users)
-  console.log(items)
 
   await Promise.all(
     users.map(user => {
       return User.create(user)
     })
   )
-
   await Promise.all(
     items.map(item => {
       return Item.create(item)
     })
   )
-
   await Promise.all(
     carts.map(cart => {
       return Cart.create(cart)
     })
   )
-
+  await Promise.all(
+    admins.map(admin => {
+      return User.create(admin)
+    })
+  )
   console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
 }
