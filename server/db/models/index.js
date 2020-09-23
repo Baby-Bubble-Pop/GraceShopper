@@ -19,6 +19,8 @@ Item.belongsToMany(User, {
   constraints: false
 })
 
+User.hasMany(BillingInfo)
+
 Item.hasMany(Cart)
 Cart.belongsTo(Item)
 User.hasOne(Cart)
