@@ -1,6 +1,6 @@
-# Boilermaker
+# Grace Shopper
 
-_Good things come in pairs_
+Master Branch: [![Build Status](https://travis-ci.org/Baby-Bubble-Pop/GraceShopper.svg?branch=master)](https://travis-ci.org/Baby-Bubble-Pop/GraceShopper)
 
 Looking to mix up a backend with `express`/`sequelize` and a frontend with
 `react`/`redux`? That's `boilermaker`!
