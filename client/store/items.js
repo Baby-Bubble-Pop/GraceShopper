@@ -7,7 +7,7 @@ const initialItems = []
 const GET_ITEMS = 'GET ITEMS'
 
 //ACTION CREATORS
-const getItems = items({type: GET_ITEMS, items})
+const getItems = items => ({type: GET_ITEMS, items})
 
 //THUNK CREATORS
 export const fetchItems = () => async dispatch => {
