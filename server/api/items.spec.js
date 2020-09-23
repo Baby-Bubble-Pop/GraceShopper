@@ -27,6 +27,26 @@ describe('User routes', () => {
         name: 'mcnuggets'
       })
     })
+
+    beforeEach(() => {
+      let session = null
+      request('http://localhost:8080')
+        .post('/auth/login')
+        .send({
+          email: 'admin-1@email.com',
+          password: 'admin1',
+          role: 'admin'
+        })
+        .end((err, res) => {
+          if (err) {
+            return done(err)
+          }
+          session = res.header['your-cookie']
+          console.log('SESSION:', session)
+          done()
+        })
+    })
+
     const taters = {
       price: 3,
       id: 3,
@@ -65,6 +85,7 @@ describe('User routes', () => {
     it('POST /api/items', async () => {
       const res = await request(app)
         .post('/api/items')
+        .set('Cookie', session)
         .send(taters)
         .expect(201)
 
