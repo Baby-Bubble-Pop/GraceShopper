@@ -3,7 +3,7 @@ const Item = require('./item')
 const Cart = require('./cart')
 const ShippingInfo = require('./shippingInfo')
 const BillingInfo = require('./billingInfo')
-
+const Order = require('./Order')
 
 User.belongsToMany(Item, {
   through: {
@@ -20,6 +20,13 @@ Item.belongsToMany(User, {
   },
   constraints: false
 })
+Order.hasMany(Item)
+Item.belongsTo(Order)
+
+User.hasMany(ShippingInfo)
+ShippingInfo.belongsTo(User)
+User.hasMany(BillingInfo)
+BillingInfo.belongsTo(User)
 
 Item.hasMany(Cart)
 Cart.belongsTo(Item)
@@ -31,5 +38,6 @@ module.exports = {
   Item,
   Cart,
   ShippingInfo,
-  BillingInfo
+  BillingInfo,
+  Order
 }
