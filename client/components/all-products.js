@@ -7,16 +7,6 @@ export class AllProducts extends React.Component {
     this.props.fetchItems()
   }
 
-  // fetchItems = async () => {
-  //     try {
-  //         await this.props.fetchItems()
-  //     } catch (error) {
-  //         console.error('Something went wrong with Reacts fetch items!')
-
-  //     }
-
-  // }
-
   render() {
     console.log('WHAT PROPS DO WE HAVE', this.props)
 
@@ -37,11 +27,9 @@ export class AllProducts extends React.Component {
   }
 }
 
-const mapState = state => {
-  return {
-    items: state.items
-  }
-}
+const mapState = state => ({
+  items: state.items
+})
 
 const mapDispatch = dispatch => ({
   fetchItems: () => dispatch(fetchItems())

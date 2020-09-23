@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link, Route, Switch} from 'react-router-dom'
 import {logout} from '../store'
-import {AllProducts} from './all-products'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
@@ -26,9 +25,6 @@ const Navbar = ({handleClick, isLoggedIn}) => (
         </div>
       )}
     </nav>
-    <main>
-      <Route exact path="/products" component={AllProducts} />
-    </main>
     <hr />
   </div>
 )

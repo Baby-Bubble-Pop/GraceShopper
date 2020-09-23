@@ -22,7 +22,7 @@ export const fetchItems = () => async dispatch => {
 
 //REDUCER
 export default function(state = initialItems, action) {
-  switch (actions.type) {
+  switch (action.type) {
     case GET_ITEMS:
       return action.items
     default:
