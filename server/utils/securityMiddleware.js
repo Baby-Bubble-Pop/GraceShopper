@@ -18,4 +18,14 @@ const isAdmin = (req, res, next) => {
   }
 }
 
-module.exports = {isUser, isAdmin}
+const isSameUserOrAdmin = (req, res, next) => {
+  if (req.user.id === Number(req.params.id) || req.user.role === 'admin') {
+    next()
+  } else {
+    const err = new Error('You must be this user or an admin to access this!')
+    err.status = 403
+    next(err)
+  }
+}
+
+module.exports = {isUser, isAdmin, isSameUserOrAdmin}

@@ -1,6 +1,10 @@
 const router = require('express').Router()
 const {User, Item} = require('../db/models')
-const {isAdmin, isUser} = require('../utils/securityMiddleware')
+const {
+  isAdmin,
+  isUser,
+  isSameUserOrAdmin
+} = require('../utils/securityMiddleware')
 
 module.exports = router
 
@@ -19,7 +23,7 @@ router.get('/', isAdmin, async (req, res, next) => {
   }
 })
 
-router.get('/:id', isAdmin, async (req, res, next) => {
+router.get('/:id', isSameUserOrAdmin, async (req, res, next) => {
   // GET /api/users/:id
 
   try {
