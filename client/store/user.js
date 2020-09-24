@@ -42,6 +42,7 @@ export const auth = (email, password, method) => async dispatch => {
   }
 
   try {
+    res.data.cart = await axios.get(`/api/users/${res.data.id}`)
     dispatch(getUser(res.data))
     history.push('/home')
   } catch (dispatchOrHistoryErr) {
@@ -54,16 +55,6 @@ export const logout = () => async dispatch => {
     await axios.post('/auth/logout')
     dispatch(removeUser())
     history.push('/login')
-  } catch (err) {
-    console.error(err)
-  }
-}
-
-export const fetchUser = () => async dispatch => {
-  try {
-    const {data: currentUser} = await axios.get('/auth/me')
-    const {data: user} = await axios.get('api/users/' + currentUser.id)
-    dispatch(getUser(user))
   } catch (err) {
     console.error(err)
   }
