@@ -42,6 +42,7 @@ export const auth = (email, password, method) => async dispatch => {
   }
 
   try {
+    res.data.cart = await axios.get(`/api/users/${res.data.id}`)
     dispatch(getUser(res.data))
     history.push('/home')
   } catch (dispatchOrHistoryErr) {
