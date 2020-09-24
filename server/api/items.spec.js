@@ -6,7 +6,7 @@ const db = require('../db')
 const app = require('../index')
 const Item = db.model('item')
 
-describe('User routes', () => {
+describe('Item routes', () => {
   beforeEach(() => {
     return db.sync({force: true})
   })
@@ -27,9 +27,26 @@ describe('User routes', () => {
         name: 'mcnuggets'
       })
     })
+
+    let session = null
+    beforeEach(done => {
+      request('http://localhost:8080')
+        .post('/auth/login')
+        .send({
+          email: 'admin-1@email.com',
+          password: 'admin1'
+        })
+        .end((err, res) => {
+          if (err) {
+            return done(err)
+          }
+          session = res.header['set-cookie']
+          done()
+        })
+    })
+
     const taters = {
       price: 3,
-      id: 3,
       name: 'tater tots',
       description: 'bag of tater tots',
       rating: null,
@@ -63,18 +80,19 @@ describe('User routes', () => {
     })
 
     it('POST /api/items', async () => {
-      const res = await request(app)
+      const res = await request('http://localhost:8080')
         .post('/api/items')
+        .set('Cookie', session)
         .send(taters)
         .expect(201)
-
       expect(res.body).to.be.an('object')
       expect(res.body.name).to.be.equal('tater tots')
     })
 
     it('PUT /api/items/:id', async () => {
-      const res = await request(app)
+      const res = await request('http://localhost:8080')
         .put('/api/items/1')
+        .set('Cookie', `${session}`)
         .send(updatedPizzaRolls)
         .expect(200)
 
@@ -84,11 +102,12 @@ describe('User routes', () => {
     })
 
     it('DELETE /api/items/:id', async () => {
-      await request(app)
+      await request('http://localhost:8080')
         .delete('/api/items/3')
-        .expect(204)
+        .set('Cookie', session)
+        .expect(302)
 
-      const res = await request(app)
+      const res = await request('http://localhost:8080')
         .get('/api/items/3')
         .expect(404)
 
