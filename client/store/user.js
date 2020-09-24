@@ -59,6 +59,16 @@ export const logout = () => async dispatch => {
   }
 }
 
+export const fetchUser = () => async dispatch => {
+  try {
+    const {data: currentUser} = await axios.get('/auth/me')
+    const {data: user} = await axios.get('api/users/' + currentUser.id)
+    dispatch(getUser(user))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 /**
  * REDUCER
  */
