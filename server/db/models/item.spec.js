@@ -4,7 +4,7 @@ const Item = db.model('item')
 
 describe('Item model', () => {
   beforeEach(() => {
-    return db.sync({force: true})
+    db.sync({force: true})
   })
   describe('model fields', () => {
     describe('price', () => {
@@ -14,14 +14,14 @@ describe('Item model', () => {
         testItem = await Item.create({
           name: 'banana',
           description: 'good source of potassium',
-          price: 2.7,
+          price: 2,
           rating: 4.8,
           quantity: 5
         })
       })
 
       it('returns price in the correct format', () => {
-        expect(testItem.price).to.deep.equal(2.7)
+        expect(testItem.price).to.deep.equal(2)
       })
 
       it('return rating in correct format', () => {
