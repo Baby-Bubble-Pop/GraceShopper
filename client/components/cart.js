@@ -3,25 +3,27 @@ import {connect} from 'react-redux'
 import {fetchUser} from '../store/user'
 
 class Cart extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       cart: []
     }
   }
-  componentDidMount() {
-    this.props.getUser()
-    this.setState({
-      cart: this.props.user.cart.data
-    })
-  }
+  // componentDidMount() {
+  //   this.props.getUser()
+  //   this.setState({
+  //     cart: this.props.user.cart.data
+  //   })
+  // }
   render() {
-    console.log(this.state.cart)
+    console.log(this.props)
+    let cart = this.props.user.cart.data
+    console.log(cart)
     return (
       <div>
         <h1>Welcome to your cart</h1>
-        {this.state.cart.length !== 0 ? (
-          this.state.cart.map(item => {
+        {cart ? (
+          cart.map(item => {
             return (
               <div key={item.id}>
                 <p>NAME: {item.name}</p>
@@ -44,8 +46,8 @@ const mapState = state => ({
   user: state.user
 })
 
-const mapDispatch = dispatch => ({
-  getUser: () => dispatch(fetchUser())
-})
+// const mapDispatch = dispatch => ({
+//   getUser: () => dispatch(fetchUser())
+// })
 
-export default connect(mapState, mapDispatch)(Cart)
+export default connect(mapState)(Cart)
