@@ -63,8 +63,8 @@ router.delete('/:id', isAdmin, async (req, res, next) => {
       where: {
         id: req.params.id
       }
-    })
-    res.redirect('/items')
+    }
+    res.status(204).redirect('/items')
   } catch (err) {
     next(err)
   }
