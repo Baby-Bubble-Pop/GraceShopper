@@ -10,7 +10,7 @@ const Item = db.define('item', {
     type: Sequelize.TEXT
   },
   price: {
-    type: Sequelize.DECIMAL(10, 2),
+    type: Sequelize.INTEGER,
     allowNull: false,
     get() {
       return parseFloat(this.getDataValue('price'))
