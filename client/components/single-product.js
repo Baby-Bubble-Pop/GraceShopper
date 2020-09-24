@@ -4,11 +4,20 @@ import {fetchSingleItem} from '../store/singleItem'
 
 export class SingleProduct extends React.Component {
   componentDidMount() {
-    this.props.fetchSingleItem()
+    const itemId = this.props.match.params(itemId)
+    this.props.fetchSingleItem(itemId)
   }
 
   render() {
-    return <div />
+    return (
+      <div>
+        <h3>Name: {item.name}</h3>
+        <h4>Price: {item.price}</h4>
+        <div>{item.rating}</div>
+        <p>{item.description}</p>
+        <p>{item.quantity}</p>
+      </div>
+    )
   }
 }
 
@@ -19,7 +28,7 @@ const mapState = state => ({
 const mapDispatch = dispatch => {
   return {
     fetchSingleItem() {
-      dispatch(fetchSingleItem())
+      dispatch(fetchSingleItem(itemId))
     }
   }
 }
