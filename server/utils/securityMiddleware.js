@@ -19,7 +19,6 @@ const isAdmin = (req, res, next) => {
 }
 
 const isSameUserOrAdmin = (req, res, next) => {
-  console.log('user and params', typeof req.user.id, typeof req.params.id)
   if (req.user.id === Number(req.params.id) || req.user.role === 'admin') {
     next()
   } else {
