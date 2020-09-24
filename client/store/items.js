@@ -4,7 +4,7 @@ import axios from 'axios'
 const initialItems = []
 
 //ACTION TYPES
-const GET_ITEMS = 'GET ITEMS'
+const GET_ITEMS = 'GET_ITEMS'
 
 //ACTION CREATORS
 const getItems = items => ({type: GET_ITEMS, items})
