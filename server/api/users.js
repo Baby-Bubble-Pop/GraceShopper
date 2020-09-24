@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const {User, Item} = require('../db/models')
-const {isAdmin, isUser} = require('../utils/securityMiddleware')
+const {isAdmin, isEngineer} = require('../utils/securityMiddleware')
 
 module.exports = router
 
@@ -27,5 +27,36 @@ router.get('/:id', isAdmin, async (req, res, next) => {
     res.send(userData.items)
   } catch (error) {
     next(error)
+  }
+})
+
+// PUT /api/users/:id
+router.put('/:id', isEngineer, async (req, res, next) => {
+  try {
+    const [updatedUserCount, updatedUser] = await User.update(req.body, {
+      where: {
+        id: req.params.id
+      },
+      returning: true
+    })
+    if (updatedUserCount === 1) {
+      res.send(updatedUser[0])
+    }
+  } catch (err) {
+    next(err)
+  }
+})
+
+// DELETE /api/users/:id
+router.delete('/:id', isEngineer, async (req, res, next) => {
+  try {
+    await User.destroy({
+      where: {
+        id: req.params.id
+      }
+    })
+    res.status(204).redirect('/users')
+  } catch (err) {
+    next(err)
   }
 })

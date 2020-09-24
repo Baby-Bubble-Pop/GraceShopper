@@ -18,4 +18,14 @@ const isAdmin = (req, res, next) => {
   }
 }
 
-module.exports = {isUser, isAdmin}
+const isEngineer = (req, res, next) => {
+  if (req.user.role === 'engineer') {
+    next()
+  } else {
+    const err = new Error('You must be an engineer to access this!')
+    err.status = 403
+    next(err)
+  }
+}
+
+module.exports = {isUser, isAdmin, isEngineer}
