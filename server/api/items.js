@@ -64,7 +64,7 @@ router.delete('/:id', isAdmin, async (req, res, next) => {
         id: req.params.id
       }
     })
-    res.sendStatus(204).redirect('/items')
+    res.redirect('/items')
   } catch (err) {
     next(err)
   }
