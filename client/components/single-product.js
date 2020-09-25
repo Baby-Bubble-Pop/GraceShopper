@@ -9,23 +9,23 @@ export class SingleProduct extends React.Component {
   }
 
   render() {
-    console.log('this.props.match.params.id:', this.props.match.params.id)
     console.log('PROPS', this.props)
+    const {item} = this.props
     return (
       <div>
-        <h1>this is a test</h1>
-        {/* <h1>Name: {item.name}</h1>
+        <h1>Product Name: {item.name}</h1>
+        <img src={item.image} />
         <h4>Price: {item.price}</h4>
         <div>{item.rating}</div>
         <p>{item.description}</p>
-        <p>{item.quantity}</p> */}
+        <p>{item.quantity}</p>
       </div>
     )
   }
 }
 
 const mapState = state => ({
-  item: state.item
+  item: state.singleItem
 })
 
 const mapDispatch = dispatch => {

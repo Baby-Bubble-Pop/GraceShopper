@@ -15,7 +15,7 @@ export const fetchItems = () => async dispatch => {
     const response = await axios.get('/api/items')
     dispatch(getItems(response.data))
   } catch (error) {
-    console.error('Error in fetchItems thunk creator')
+    console.error('Error in fetchItems thunk creator', error)
     throw error
   }
 }

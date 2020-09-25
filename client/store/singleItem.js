@@ -15,7 +15,7 @@ export const fetchSingleItem = itemId => async dispatch => {
     const response = await axios.get(`/api/items/${itemId}`)
     dispatch(getSingleItem(response.data))
   } catch (error) {
-    console.error('Error in fetchSingleItem thunk creator')
+    console.error('Error in fetchSingleItem thunk creator', error)
     throw error
   }
 }
