@@ -6,12 +6,11 @@ import history from '../history'
  */
 const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
-
 /**
  * INITIAL STATE
  */
 const defaultUser = {
-  cart: {}
+  cart: []
 }
 
 /**
@@ -32,6 +31,25 @@ export const me = () => async dispatch => {
     console.error(err)
   }
 }
+
+export const addToCart = (userId, itemId) => async dispatch => {
+  try {
+    const ids = {
+      userId,
+      itemId
+    }
+    console.log('WE ENTERED THE THUNK CREATOR')
+
+    const res = await axios.put('/api/users/addItems', ids)
+    dispatch(getUser(res.data || defaultUser))
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+//make a call to axios request
+//need to pass in both user/item ids
+//create an object with both ids
 
 export const auth = (email, password, method) => async dispatch => {
   let res

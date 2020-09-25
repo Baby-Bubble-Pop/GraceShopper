@@ -35,6 +35,18 @@ router.get('/:id', isSameUserOrAdmin, async (req, res, next) => {
   }
 })
 
+//ADD TO CART
+router.put('/addItems', async (req, res, next) => {
+  try {
+    console.log('route has been reached!')
+    const user = await User.findByPk(req.body.userId)
+    user.addItem(req.body.itemId)
+    res.send(user)
+  } catch (err) {
+    next(err)
+  }
+})
+
 // PUT /api/users/:id
 router.put('/:id', isEngineer, async (req, res, next) => {
   try {
