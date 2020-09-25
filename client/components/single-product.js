@@ -8,17 +8,20 @@ export class SingleProduct extends React.Component {
     this.props.fetchSingleItem(itemId)
   }
 
+  addToCart() {}
+
   render() {
     console.log('PROPS', this.props)
-    const {item} = this.props
+    const {name, image, price, rating, description, quantity} = this.props.item
     return (
       <div>
-        <h1>Product Name: {item.name}</h1>
-        <img src={item.image} />
-        <h4>Price: {item.price}</h4>
-        <div>{item.rating}</div>
-        <p>{item.description}</p>
-        <p>{item.quantity}</p>
+        <h1>Product Name: {name}</h1>
+        <img src={image} />
+        <button onClick={this.addToCart}>ADD TO CART</button>
+        <h4>Price: {price}</h4>
+        <div>{rating}</div>
+        <p>{description}</p>
+        <p>{quantity}</p>
       </div>
     )
   }

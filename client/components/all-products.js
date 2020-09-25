@@ -8,6 +8,8 @@ export class AllProducts extends React.Component {
     this.props.fetchItems()
   }
 
+  addToCart() {}
+
   render() {
     console.log('ALL PRODUCTS PROPS', this.props)
     return (
@@ -22,6 +24,7 @@ export class AllProducts extends React.Component {
                 <p>name: {item.name}</p>
               </Link>
               <p>price: {item.price}</p>
+              <button onClick={this.addToCart}>ADD TO CART</button>
             </div>
           )
         })}
