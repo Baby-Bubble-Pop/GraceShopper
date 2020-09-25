@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User, Item} = require('../db/models')
+const {User, Item, Cart} = require('../db/models')
 const {
   isAdmin,
   isUser,
@@ -38,9 +38,17 @@ router.get('/:id', isSameUserOrAdmin, async (req, res, next) => {
 //ADD TO CART
 router.put('/addItems', async (req, res, next) => {
   try {
-    console.log('route has been reached!')
+    const newCartItem = await Cart.create({
+      userId: req.body.userId,
+      itemId: req.body.itemId
+    })
     const user = await User.findByPk(req.body.userId)
-    user.addItem(req.body.itemId)
+    // const items = await user.getItems()
+    // const item = await Item.findByPk(req.body.itemId)
+    // items.push(item)
+    // await user.addItems(items)
+
+    // user.addItem(req.body.itemId)
     res.send(user)
   } catch (err) {
     next(err)
