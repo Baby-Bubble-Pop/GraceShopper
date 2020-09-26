@@ -102,6 +102,19 @@ router.put('/addItems', async (req, res, next) => {
   }
 })
 
+router.delete('/deleteItem/:id', async (req, res, next) => {
+  try {
+    await Cart.destroy({
+      where: {
+        itemId: req.params.id
+      }
+    })
+    res.sendStatus(204)
+  } catch (err) {
+    next(err)
+  }
+})
+
 // PUT /api/users/:id
 router.put('/:id', isEngineer, async (req, res, next) => {
   try {
