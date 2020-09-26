@@ -38,7 +38,8 @@ export const addToCart = (userId, itemId) => async dispatch => {
       userId,
       itemId
     }
-    console.log('WE ENTERED THE THUNK CREATOR')
+    // console.log(userId, itemId)
+    // console.log('WE ENTERED THE THUNK CREATOR')
 
     const res = await axios.put('/api/users/addItems', ids)
     dispatch(getUser(res.data || defaultUser))
@@ -46,10 +47,6 @@ export const addToCart = (userId, itemId) => async dispatch => {
     console.error(error)
   }
 }
-
-//make a call to axios request
-//need to pass in both user/item ids
-//create an object with both ids
 
 export const auth = (email, password, method) => async dispatch => {
   let res

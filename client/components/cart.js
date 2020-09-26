@@ -16,6 +16,7 @@ class Cart extends React.Component {
                   <p>RATING: {item.rating}</p>
                   <p>DESCRIPTION: {item.description}</p>
                   <p>IMAGE: {item.image}</p>
+                  <p>QUANTITY: {item.cart.quantity}</p>
                 </div>
               )
             })

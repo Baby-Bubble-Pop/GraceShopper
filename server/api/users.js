@@ -1,4 +1,6 @@
 const router = require('express').Router()
+const {reset} = require('nodemon')
+const {Sequelize} = require('sequelize')
 const {User, Item, Cart} = require('../db/models')
 const {
   isAdmin,
@@ -38,18 +40,37 @@ router.get('/:id', isSameUserOrAdmin, async (req, res, next) => {
 //ADD TO CART
 router.put('/addItems', async (req, res, next) => {
   try {
-    const newCartItem = await Cart.create({
-      userId: req.body.userId,
-      itemId: req.body.itemId
+    console.log('STEP ONE', req.body)
+    const checkForCart = await Cart.findAll({
+      where: {
+        userId: req.body.userId,
+        itemId: req.body.itemId
+      }
     })
-    const user = await User.findByPk(req.body.userId)
-    // const items = await user.getItems()
-    // const item = await Item.findByPk(req.body.itemId)
-    // items.push(item)
-    // await user.addItems(items)
+    console.log('STEP TWO', checkForCart)
 
-    // user.addItem(req.body.itemId)
-    res.send(user)
+    if (!checkForCart.length) {
+      const newCartItem = await Cart.create({
+        userId: req.body.userId,
+        itemId: req.body.itemId,
+        quantity: 1
+      })
+      const user = await User.findByPk(req.body.userId)
+      // const items = await user.getItems()
+      // const item = await Item.findByPk(req.body.itemId)
+      // items.push(item)
+      // await user.addItems(items)
+
+      // user.addItem(req.body.itemId)
+      res.send(user)
+    } else {
+      const updatedCartItem = await Cart.update(
+        {quantity: Sequelize.literal('quantity + 1')},
+        {where: {itemId: req.body.itemId}}
+      )
+      const user = await User.findByPk(req.body.userId)
+      res.send(user)
+    }
   } catch (err) {
     next(err)
   }
