@@ -13,11 +13,11 @@ class Cart extends React.Component {
               return (
                 <div key={item.id}>
                   <div>
+                    <img src={item.image} />
                     <p>NAME: {item.name}</p>
                     <p>PRICE: {item.price}</p>
                     <p>RATING: {item.rating}</p>
                     <p>DESCRIPTION: {item.description}</p>
-                    <p>IMAGE: {item.image}</p>
                     <p>QUANTITY: {item.cart.quantity}</p>
                   </div>
                   <form
@@ -48,7 +48,7 @@ class Cart extends React.Component {
         </div>
       )
     } else {
-      return <h1>Not Found</h1>
+      return <h1>Your Cart is Empty</h1>
     }
   }
 }

@@ -26,6 +26,7 @@ export const me = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me')
     res.data.cart = await axios.get(`/api/users/${res.data.id}`)
+    console.log(res.data)
     dispatch(getUser(res.data || defaultUser))
   } catch (err) {
     console.error(err)

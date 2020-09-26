@@ -62,21 +62,21 @@ router.get('/:id', isSameUserOrAdmin, async (req, res, next) => {
 //ADD TO CART
 router.put('/addItems', async (req, res, next) => {
   try {
-    console.log('STEP ONE', req.body)
     const checkForCart = await Cart.findAll({
       where: {
         userId: req.body.userId,
         itemId: req.body.itemId
       }
     })
-    console.log('STEP TWO', checkForCart)
     const item = await Item.findByPk(req.body.itemId)
 
     if (!checkForCart.length) {
+      console.log(typeof req.body.quantity)
+      console.log(typeof item.quantity)
       if (req.body.quantity > item.quantity) {
         throw new Error('Quantity exceeds maximum available')
       }
-      const newCartItem = await Cart.create({
+      await Cart.create({
         userId: req.body.userId,
         itemId: req.body.itemId,
         quantity: req.body.quantity
@@ -84,7 +84,10 @@ router.put('/addItems', async (req, res, next) => {
       const user = await User.findByPk(req.body.userId)
       res.send(user)
     } else {
-      if (req.body.quantity + checkForCart[0].quantity > item.quantity) {
+      if (
+        Number(req.body.quantity) + checkForCart[0].quantity >
+        item.quantity
+      ) {
         throw new Error('Quantity exceeds maximum available')
       }
       await checkForCart[0].increment({

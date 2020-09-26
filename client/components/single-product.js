@@ -11,7 +11,6 @@ export class SingleProduct extends React.Component {
   }
 
   render() {
-    console.log('PROPS', this.props)
     const {name, image, price, rating, description, quantity} = this.props.item
     return (
       <div>
