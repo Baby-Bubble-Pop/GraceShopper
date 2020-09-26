@@ -26,14 +26,26 @@ export class AllProducts extends React.Component {
                 <p>name: {item.name}</p>
               </Link>
               <p>price: {item.price}</p>
-              <button
-                onClick={() => {
-                  this.props.addToCart(this.props.user.id, item.id)
+              <p>quantity: {item.quantity}</p>
+              <form
+                onSubmit={e => {
+                  e.preventDefault()
+                  this.props.addToCart(
+                    this.props.user.id,
+                    item.id,
+                    e.target.quantity.value
+                  )
                   this.props.getUser()
                 }}
               >
-                ADD TO CART
-              </button>
+                <div>
+                  <label htmlFor="quantity">
+                    <small>Quantity</small>
+                  </label>
+                  <input name="quantity" type="number" />
+                </div>
+                <button type="submit">ADD TO CART</button>
+              </form>
             </div>
           )
         })}
@@ -52,8 +64,8 @@ const mapDispatch = dispatch => {
     fetchItems() {
       dispatch(fetchItems())
     },
-    addToCart(userId, itemId) {
-      dispatch(addToCart(userId, itemId))
+    addToCart(userId, itemId, quantity) {
+      dispatch(addToCart(userId, itemId, quantity))
     },
     getUser() {
       dispatch(me())

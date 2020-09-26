@@ -32,16 +32,17 @@ export const me = () => async dispatch => {
   }
 }
 
-export const addToCart = (userId, itemId) => async dispatch => {
+export const addToCart = (userId, itemId, quantity) => async dispatch => {
   try {
-    const ids = {
+    const body = {
       userId,
-      itemId
+      itemId,
+      quantity
     }
     // console.log(userId, itemId)
     // console.log('WE ENTERED THE THUNK CREATOR')
 
-    const res = await axios.put('/api/users/addItems', ids)
+    const res = await axios.put('/api/users/addItems', body)
     dispatch(getUser(res.data || defaultUser))
   } catch (error) {
     console.error(error)

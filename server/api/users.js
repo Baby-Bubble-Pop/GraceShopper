@@ -70,25 +70,27 @@ router.put('/addItems', async (req, res, next) => {
       }
     })
     console.log('STEP TWO', checkForCart)
+    const item = await Item.findByPk(req.body.itemId)
 
     if (!checkForCart.length) {
+      if (req.body.quantity > item.quantity) {
+        throw new Error('Quantity exceeds maximum available')
+      }
       const newCartItem = await Cart.create({
         userId: req.body.userId,
         itemId: req.body.itemId,
-        quantity: 1
+        quantity: req.body.quantity
       })
       const user = await User.findByPk(req.body.userId)
       res.send(user)
     } else {
-      const updatedCartItem = await Cart.update(
-        {quantity: Sequelize.literal('quantity + 1')},
-        {
-          where: {
-            userId: req.body.userId,
-            itemId: req.body.itemId
-          }
-        }
-      )
+      if (req.body.quantity + checkForCart[0].quantity > item.quantity) {
+        throw new Error('Quantity exceeds maximum available')
+      }
+      await checkForCart[0].increment({
+        quantity: req.body.quantity
+      })
+
       const user = await User.findByPk(req.body.userId)
       res.send(user)
     }

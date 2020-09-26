@@ -17,19 +17,30 @@ export class SingleProduct extends React.Component {
       <div>
         <h1>Product Name: {name}</h1>
         <img src={image} />
-        <button
-          onClick={() => {
-            this.props.addToCart(this.props.user.id, this.props.item.id)
+        <form
+          onSubmit={e => {
+            e.preventDefault()
+            this.props.addToCart(
+              this.props.user.id,
+              this.props.item.id,
+              e.target.quantity.value
+            )
             this.props.getUser()
           }}
         >
-          ADD TO CART
-        </button>
+          <div>
+            <label htmlFor="quantity">
+              <small>Quantity</small>
+            </label>
+            <input name="quantity" type="number" />
+          </div>
+          <button type="submit">ADD TO CART</button>
+        </form>
 
         <h4>Price: {price}</h4>
-        <div>{rating}</div>
-        <p>{description}</p>
-        <p>{quantity}</p>
+        <div>Rating: {rating}</div>
+        <p>Description: {description}</p>
+        <p>Quantity: {quantity}</p>
       </div>
     )
   }
@@ -45,8 +56,8 @@ const mapDispatch = dispatch => {
     fetchSingleItem(itemId) {
       dispatch(fetchSingleItem(itemId))
     },
-    addToCart(userId, itemId) {
-      dispatch(addToCart(userId, itemId))
+    addToCart(userId, itemId, quantity) {
+      dispatch(addToCart(userId, itemId, quantity))
     },
     getUser() {
       dispatch(me())
