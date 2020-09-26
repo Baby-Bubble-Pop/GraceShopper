@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {me, addToCart} from '../store/user'
 
 class Cart extends React.Component {
   render() {
@@ -11,11 +12,33 @@ class Cart extends React.Component {
             this.props.user.cart.data.map(item => {
               return (
                 <div key={item.id}>
-                  <p>NAME: {item.name}</p>
-                  <p>PRICE: {item.price}</p>
-                  <p>RATING: {item.rating}</p>
-                  <p>DESCRIPTION: {item.description}</p>
-                  <p>IMAGE: {item.image}</p>
+                  <div>
+                    <img src={item.image} />
+                    <p>NAME: {item.name}</p>
+                    <p>PRICE: {item.price}</p>
+                    <p>RATING: {item.rating}</p>
+                    <p>DESCRIPTION: {item.description}</p>
+                    <p>QUANTITY: {item.cart.quantity}</p>
+                  </div>
+                  <form
+                    onSubmit={e => {
+                      e.preventDefault()
+                      this.props.addToCart(
+                        this.props.user.id,
+                        item.id,
+                        e.target.quantity.value
+                      )
+                      this.props.getUser()
+                    }}
+                  >
+                    <div>
+                      <label htmlFor="quantity">
+                        <small>Quantity</small>
+                      </label>
+                      <input name="quantity" type="number" />
+                    </div>
+                    <button type="submit">ADD QUANTITY</button>
+                  </form>
                 </div>
               )
             })
@@ -25,7 +48,7 @@ class Cart extends React.Component {
         </div>
       )
     } else {
-      return <h1>Not Found</h1>
+      return <h1>Your Cart is Empty</h1>
     }
   }
 }
@@ -34,4 +57,13 @@ const mapState = state => ({
   user: state.user
 })
 
-export default connect(mapState)(Cart)
+const mapDispatch = dispatch => ({
+  getUser() {
+    dispatch(me())
+  },
+  addToCart(userId, itemId, quantity) {
+    dispatch(addToCart(userId, itemId, quantity))
+  }
+})
+
+export default connect(mapState, mapDispatch)(Cart)

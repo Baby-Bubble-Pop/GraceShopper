@@ -38,6 +38,17 @@ router.post('/', isAdmin, async (req, res, next) => {
   }
 })
 
+// PUT /api/items/addItems
+router.put('/addItems', async (req, res, next) => {
+  try {
+    const item = await Item.findByPk(req.body.itemId)
+    await item.decrement({quantity: req.body.quantity})
+    res.send(item)
+  } catch (err) {
+    next(err)
+  }
+})
+
 // PUT /api/items/:id
 router.put('/:id', isAdmin, async (req, res, next) => {
   try {

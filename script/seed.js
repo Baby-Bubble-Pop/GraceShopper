@@ -17,7 +17,8 @@ const itemGenerator = num => {
   for (let i = 1; i < num; i++) {
     items.push({
       name: `${i}`,
-      price: `${i}`
+      price: `${i}`,
+      quantity: 5
     })
   }
   return items
@@ -41,22 +42,22 @@ const carts = [
   {itemId: 2, userId: 1},
   {itemId: 3, userId: 1},
   {itemId: 4, userId: 1},
-  {itemId: 1, userId: 2},
-  {itemId: 3, userId: 2},
-  {itemId: 4, userId: 2},
   {itemId: 5, userId: 2},
-  {itemId: 1, userId: 3},
-  {itemId: 1, userId: 3},
-  {itemId: 1, userId: 3},
-  {itemId: 1, userId: 3},
-  {itemId: 2, userId: 4},
-  {itemId: 3, userId: 4},
-  {itemId: 4, userId: 4},
-  {itemId: 5, userId: 4},
-  {itemId: 2, userId: 5},
-  {itemId: 3, userId: 5},
-  {itemId: 4, userId: 5},
-  {itemId: 5, userId: 5}
+  {itemId: 6, userId: 2},
+  {itemId: 7, userId: 2},
+  {itemId: 8, userId: 2},
+  {itemId: 9, userId: 3},
+  {itemId: 10, userId: 3},
+  {itemId: 11, userId: 3},
+  {itemId: 12, userId: 3},
+  {itemId: 13, userId: 4},
+  {itemId: 14, userId: 4},
+  {itemId: 15, userId: 4},
+  {itemId: 16, userId: 4},
+  {itemId: 17, userId: 5},
+  {itemId: 18, userId: 5},
+  {itemId: 19, userId: 5},
+  {itemId: 20, userId: 5}
 ]
 async function seed() {
   await db.sync({force: true})

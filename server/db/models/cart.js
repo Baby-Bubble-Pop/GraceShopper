@@ -6,7 +6,14 @@ const Cart = db.define('cart', {
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true
-  }
+  },
+  quantity: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    defaultValue: 1
+  },
+  userId: Sequelize.INTEGER,
+  itemId: Sequelize.INTEGER
 })
 
 module.exports = Cart
