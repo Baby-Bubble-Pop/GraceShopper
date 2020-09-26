@@ -26,7 +26,6 @@ export const me = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me')
     res.data.cart = await axios.get(`/api/users/${res.data.id}`)
-    console.log(res.data)
     dispatch(getUser(res.data || defaultUser))
   } catch (err) {
     console.error(err)
@@ -40,10 +39,19 @@ export const addToCart = (userId, itemId, quantity) => async dispatch => {
       itemId,
       quantity
     }
-    // console.log(userId, itemId)
-    // console.log('WE ENTERED THE THUNK CREATOR')
 
     const res = await axios.put('/api/users/addItems', body)
+    dispatch(getUser(res.data || defaultUser))
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export const deleteFromCart = (itemId, userId) => async dispatch => {
+  try {
+    await axios.delete(`/api/users/deleteItem/${itemId}`)
+    const res = await axios.get('/auth/me')
+    res.data.cart = await axios.get(`/api/users/${userId}`)
     dispatch(getUser(res.data || defaultUser))
   } catch (error) {
     console.error(error)

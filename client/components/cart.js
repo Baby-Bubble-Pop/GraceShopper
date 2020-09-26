@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {me, addToCart} from '../store/user'
+import {me, addToCart, deleteFromCart} from '../store/user'
 
 class Cart extends React.Component {
   render() {
@@ -39,6 +39,14 @@ class Cart extends React.Component {
                     </div>
                     <button type="submit">ADD QUANTITY</button>
                   </form>
+                  <button
+                    type="submit"
+                    onClick={() => {
+                      this.props.deleteFromCart(item.id, this.props.user.id)
+                    }}
+                  >
+                    DELETE
+                  </button>
                 </div>
               )
             })
@@ -63,6 +71,9 @@ const mapDispatch = dispatch => ({
   },
   addToCart(userId, itemId, quantity) {
     dispatch(addToCart(userId, itemId, quantity))
+  },
+  deleteFromCart(itemId, userId) {
+    dispatch(deleteFromCart(itemId, userId))
   }
 })
 
