@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {me, addToCart, deleteFromCart} from '../store/user'
+import {Link} from 'react-router-dom'
 
 class Cart extends React.Component {
   render() {
@@ -8,6 +9,9 @@ class Cart extends React.Component {
       return (
         <div>
           <h1>Welcome to your cart</h1>
+          <Link to="/Checkout">
+            <button>CHECKOUT</button>
+          </Link>
           {this.props.user.cart.data.length !== 0 ? (
             this.props.user.cart.data.map(item => {
               return (
