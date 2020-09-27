@@ -12,7 +12,9 @@ export const disconnectedUserProfile = props => {
       <p>Email address: {email}</p>
       <p>Payment Information: {paymentInformation}</p>
       <p>Purchase history: </p>
-      <button type="button">Update Profile</button>
+      <button type="button" onClick={() => props.history.push('/profile/edit')}>
+        Update Profile
+      </button>
     </div>
   )
 }

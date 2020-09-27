@@ -6,7 +6,8 @@ const {
   isAdmin,
   isUser,
   isSameUserOrAdmin,
-  isEngineer
+  isEngineer,
+  isSameUserOrEngineer
 } = require('../utils/securityMiddleware')
 
 module.exports = router
@@ -116,7 +117,14 @@ router.delete('/deleteItem/:id', async (req, res, next) => {
 })
 
 // PUT /api/users/:id
-router.put('/:id', isEngineer, async (req, res, next) => {
+router.put('/:id', isSameUserOrEngineer, async (req, res, next) => {
+  if (req.user.role === 'user') {
+    if (req.body.role !== 'user') {
+      const error = new Error('You must be an engineer to change roles!')
+      error.status = 403
+      next(error)
+    }
+  }
   try {
     const [updatedUserCount, updatedUser] = await User.update(req.body, {
       where: {

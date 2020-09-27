@@ -36,6 +36,21 @@ const isEngineer = (req, res, next) => {
     err.status = 403
     next(err)
   }
+} // In progress down below
+const isSameUserOrEngineer = (req, res, next) => {
+  if (req.user.id === Number(req.params.id) || req.user.role === 'engineer') {
+    next()
+  } else {
+    const err = new Error('You must be an engineer or the user to access this!')
+    err.status = 403
+    next(err)
+  }
 }
 
-module.exports = {isUser, isAdmin, isSameUserOrAdmin, isEngineer}
+module.exports = {
+  isUser,
+  isAdmin,
+  isSameUserOrAdmin,
+  isEngineer,
+  isSameUserOrEngineer
+}
