@@ -1,26 +1,34 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {me} from '../store/user'
+import {createNewShippingInfo} from '../store/checkout'
+import {Link} from 'react-router-dom'
 
-class Checkout extends React.Component {
+class CheckoutShipping extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      shippingInfo: {
-        streetAddressLine1: '',
-        streetAddressLine2: '',
-        aptSuiteNo: '',
-        city: '',
-        state: '',
-        zipCode: ''
-      },
+      streetAddressLine1: '',
+      streetAddressLine2: '',
+      aptSuiteNo: '',
+      city: '',
+      state: '',
+      zipCode: ''
+    }
 
-      billingInfo: {
-        name: '',
-        creditCardNumber: '',
-        cvv: '',
-        expirationDate: ''
-      }
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  handleChange(event) {
+    this.setState({[event.target.name]: event.target.value})
+  }
+  handleSubmit(event) {
+    try {
+      event.preventDefault()
+      this.props.createNewShippingInfo(this.state)
+    } catch (error) {
+      console.error('Something went wrong with saving your shipping info!')
     }
   }
 
@@ -32,14 +40,13 @@ class Checkout extends React.Component {
       city,
       state,
       zipCode
-    } = this.state.shippingInfo
-    const {name, creditCardNumber, cvv, expirationDate} = this.state.billingInfo
+    } = this.state
     return (
       <div>
         <h1>CHECKOUT</h1>
 
         <h3>Shipping Address</h3>
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <label htmlFor="streetAddressLine1">Address Line 1</label>
           <input
             type="text"
@@ -87,58 +94,30 @@ class Checkout extends React.Component {
             value={zipCode}
             onChange={this.handleChange}
           />
+
+          <button type="submit">SAVE SHIPPING INFO</button>
+          <Link to="/checkoutBilling">
+            <button type="submit">MOVE ON TO PAYMENT</button>
+          </Link>
         </form>
-
-        <hr />
-        <h3>Billing Info</h3>
-        <form>
-          <label htmlFor="name">Name</label>
-          <input
-            type="text"
-            name="name"
-            value={name}
-            onChange={this.handleChange}
-          />
-
-          <label htmlFor="creditCardNumber">Credit Card Number</label>
-          <input
-            type="text"
-            name="creditCardNumber"
-            value={creditCardNumber}
-            onChange={this.handleChange}
-          />
-
-          <label htmlFor="cvv">CVV</label>
-          <input
-            type="text"
-            name="cvv"
-            value={cvv}
-            onChange={this.handleChange}
-          />
-
-          <label htmlFor="expirationDate">Expiration Date</label>
-          <input
-            type="text"
-            name="expirationDate"
-            value={expirationDate}
-            onChange={this.handleChange}
-          />
-        </form>
-
-        <button type="submit">Submit</button>
       </div>
     )
   }
 }
 
 const mapState = state => ({
-  user: state.user
+  shippingInfo: state.shippingInfo
 })
 
 const mapDispatch = dispatch => ({
   getUser() {
     dispatch(me())
+  },
+  createNewShippingInfo(shippingInfo) {
+    dispatch(createNewShippingInfo(shippingInfo))
   }
 })
 
-export const CheckedOut = connect(mapState, mapDispatch)(Checkout)
+export const CheckedOutShipping = connect(mapState, mapDispatch)(
+  CheckoutShipping
+)
