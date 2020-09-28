@@ -4,7 +4,7 @@ import {expect} from 'chai'
 import React from 'react'
 import enzyme, {shallow, mount} from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
-import {render, fireEvent, cleanup} from '@testing-library/react'
+// import {render, fireEvent, cleanup} from '@testing-library/react'
 
 //getting functions used in this component; better way?
 import {fetchItems} from '../store'
@@ -50,6 +50,8 @@ describe('AllProducts', () => {
     }
   ]
 
+  //for each similar to seed file
+
   beforeEach(() => {
     allProducts = shallow(
       <AllProducts items={items} fetchItems={fetchItems} getUser={getUser} />
@@ -68,6 +70,6 @@ describe('AllProducts', () => {
   it('puts producst in order by price and rating', () => {})
 
   it('renders prices correctly', () => {
-    expect(allProducts.find('.all-products').text()).to.include('$1.00')
+    expect(allProducts.find('.all-products').text()).to.include('$1')
   })
 })
