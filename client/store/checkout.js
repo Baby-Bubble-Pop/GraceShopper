@@ -46,9 +46,13 @@ export const createNewShippingInfo = (
   }
 }
 
-export const createNewBillingInfo = billingInfo => async dispatch => {
+export const createNewBillingInfo = (billingInfo, userId) => async dispatch => {
   try {
-    const res = await axios.post('/api/checkout/billing', billingInfo)
+    let body = {
+      billingInfo,
+      userId
+    }
+    const res = await axios.post('/api/checkout/billing', body)
     dispatch(createdNewBillingInfo(res.data))
   } catch (error) {
     console.error(

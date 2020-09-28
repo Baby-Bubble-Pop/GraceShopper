@@ -34,7 +34,7 @@ User.hasOne(Cart)
 Cart.belongsTo(User)
 User.hasOne(ShippingInfo, {foreignKey: 'userId', allowNull: false})
 ShippingInfo.belongsTo(User)
-User.hasOne(BillingInfo)
+User.hasOne(BillingInfo, {foreignKey: 'userId', allowNull: false})
 BillingInfo.belongsTo(User)
 
 module.exports = {

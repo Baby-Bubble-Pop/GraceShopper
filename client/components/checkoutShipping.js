@@ -33,7 +33,7 @@ class CheckoutShipping extends React.Component {
   }
 
   render() {
-    console.log(this.props)
+    // console.log(this.props)
     const {
       streetAddressLine1,
       streetAddressLine2,

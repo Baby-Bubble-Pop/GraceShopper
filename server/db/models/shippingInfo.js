@@ -80,10 +80,6 @@ const ShippingInfo = db.define('shippingInfo', {
     type: Sequelize.INTEGER,
     allowNull: false
   }
-
-  // userId : {
-  //   type: Sequelize.INTEGER,
-  // }
 })
 
 module.exports = ShippingInfo

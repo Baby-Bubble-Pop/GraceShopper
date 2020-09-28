@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User, Item, Cart} = require('../db/models')
+const {User, Item, Cart, ShippingInfo, BillingInfo} = require('../db/models')
 const {
   isAdmin,
   isSameUserOrAdmin,
@@ -28,7 +28,9 @@ router.get('/:id', isSameUserOrAdmin, async (req, res, next) => {
   // GET /api/users/:id
 
   try {
-    const userData = await User.findByPk(req.params.id, {include: Item})
+    const userData = await User.findByPk(req.params.id, {
+      include: [Item, ShippingInfo, BillingInfo]
+    })
     res.send(userData.items)
   } catch (error) {
     next(error)

@@ -24,7 +24,7 @@ class CheckoutBilling extends React.Component {
   handleSubmit(event) {
     try {
       event.preventDefault()
-      this.props.createNewBillingInfo(this.state)
+      this.props.createNewBillingInfo(this.state, this.props.user.id)
     } catch (error) {
       console.error('Something went wrong with saving your billing info!')
     }
@@ -81,6 +81,7 @@ class CheckoutBilling extends React.Component {
 }
 
 const mapState = state => ({
+  user: state.user,
   billingInfo: state.billingInfo
 })
 
@@ -88,8 +89,8 @@ const mapDispatch = dispatch => ({
   getUser() {
     dispatch(me())
   },
-  createNewBillingInfo(billingInfo) {
-    dispatch(createNewBillingInfo(billingInfo))
+  createNewBillingInfo(billingInfo, userId) {
+    dispatch(createNewBillingInfo(billingInfo, userId))
   }
 })
 

@@ -19,7 +19,9 @@ router.post('/shipping', async (req, res, next) => {
 //POST NEW BILLING INFO
 router.post('/billing', async (req, res, next) => {
   try {
-    const newBillingInfo = await BillingInfo.create(req.body)
+    const newBillingInfo = await BillingInfo.create(req.body.billingInfo)
+    const user = await User.findByPk(req.body.userId)
+    user.setBillingInfo(newBillingInfo)
     // console.log('REQ.BODY BILLING', req.body)
     res.json(newBillingInfo)
   } catch (error) {
@@ -42,7 +44,7 @@ router.get('/confirm', async (req, res, next) => {
   }
 })
 
-//refactor billing and Shipping Info and associate them to user table
+//refactor billing and Shipping Info and associate them to user table- DONE I THINK
 //update checkout store so that they can get that route
 //order confirmation page should pull cart info from this.props.user.data.cart
 //order confirmation page should pull billing info from this.props.user.billing
