@@ -53,6 +53,12 @@ class Cart extends React.Component {
           ) : (
             <div />
           )}
+          <h2>
+            Total Price: $
+            {this.props.user.cart.data.reduce((sum, item) => {
+              return sum + item.price * item.cart.quantity
+            }, 0)}
+          </h2>
         </div>
       )
     } else {
