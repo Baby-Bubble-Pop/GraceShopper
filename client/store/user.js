@@ -27,7 +27,8 @@ const editUser = user => ({type: EDIT_USER, user})
 export const me = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me')
-    res.data.cart = await axios.get(`/api/users/${res.data.id}`)
+    const cartRes = await axios.get(`/api/users/${res.data.id}`)
+    res.data.cart = cartRes.data
     dispatch(getUser(res.data || defaultUser))
   } catch (err) {
     console.error(err)
