@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchItems} from '../store'
-import {Link} from 'react-router-dom'
+import {Link, Router} from 'react-router-dom'
 import {addToCart, me} from '../store/user'
 
 export class AllProducts extends React.Component {
@@ -14,7 +14,7 @@ export class AllProducts extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="all-products">
         <h1>All GRACESHOPPER PRODUCTS</h1>
 
         {this.props.items.map(item => {
@@ -24,7 +24,7 @@ export class AllProducts extends React.Component {
                 <img src={item.image} />
                 <p>name: {item.name}</p>
               </Link>
-              <p>price: {item.price}</p>
+              <p>price: ${item.price}</p>
               <p>quantity: {item.quantity}</p>
               <form
                 onSubmit={e => {
