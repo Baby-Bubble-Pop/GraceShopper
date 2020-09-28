@@ -12,20 +12,22 @@ describe('Item routes', () => {
   })
 
   describe('/api/items/', () => {
-    beforeEach(() => {
-      return Item.create({
+    beforeEach(done => {
+      Item.create({
         price: 3,
         id: 1,
         name: 'pizza rolls',
         rating: 2.2
       })
+      done()
     })
-    beforeEach(() => {
-      return Item.create({
+    beforeEach(done => {
+      Item.create({
         price: 5,
         id: 2,
         name: 'mcnuggets'
       })
+      done()
     })
 
     let session = null
