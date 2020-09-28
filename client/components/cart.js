@@ -12,8 +12,8 @@ class Cart extends React.Component {
           <Link to="/checkoutShipping">
             <button type="submit">CHECKOUT</button>
           </Link>
-          {this.props.user.cart.data.length !== 0 ? (
-            this.props.user.cart.data.map(item => {
+          {this.props.user.cart.length !== 0 ? (
+            this.props.user.cart.map(item => {
               return (
                 <div key={item.id}>
                   <div>

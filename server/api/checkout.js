@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {BillingInfo, ShippingInfo, User} = require('../db/models')
+const {BillingInfo, ShippingInfo, User, Order} = require('../db/models')
 
 module.exports = router
 
@@ -32,13 +32,8 @@ router.post('/billing', async (req, res, next) => {
 //GET SHIPPING AND BILLING INFO FOR FINAL CONFIRMATION
 router.get('/confirm', async (req, res, next) => {
   try {
-    console.log('GET SHIPPING REQ', req.body)
-    const shippingInfo = await ShippingInfo.findAll({
-      where: {
-        userId: req.body.userId
-      }
-    })
-    res.json(shippingInfo)
+    const newOrder = await Order.create(req.body)
+    res.json(newOrder)
   } catch (error) {
     next(error)
   }

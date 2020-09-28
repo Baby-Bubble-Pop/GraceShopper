@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {me} from '../store/user'
 import {createNewBillingInfo} from '../store/checkout'
+import {getBillingInfo} from '../store/order'
 import {Link} from 'react-router-dom'
 
 class CheckoutBilling extends React.Component {
@@ -25,6 +26,7 @@ class CheckoutBilling extends React.Component {
     try {
       event.preventDefault()
       this.props.createNewBillingInfo(this.state, this.props.user.id)
+      this.props.getBillingInfo(this.state)
     } catch (error) {
       console.error('Something went wrong with saving your billing info!')
     }
@@ -91,6 +93,9 @@ const mapDispatch = dispatch => ({
   },
   createNewBillingInfo(billingInfo, userId) {
     dispatch(createNewBillingInfo(billingInfo, userId))
+  },
+  getBillingInfo(billingInfo) {
+    dispatch(getBillingInfo(billingInfo))
   }
 })
 

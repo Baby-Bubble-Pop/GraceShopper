@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {me} from '../store/user'
 import {createNewShippingInfo} from '../store/checkout'
+import {getShippingInfo, getCart} from '../store/order'
 import {Link} from 'react-router-dom'
 
 class CheckoutShipping extends React.Component {
@@ -20,6 +21,10 @@ class CheckoutShipping extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
+  componentDidMount() {
+    this.props.getCart(this.props.user.cart)
+  }
+
   handleChange(event) {
     this.setState({[event.target.name]: event.target.value})
   }
@@ -27,6 +32,7 @@ class CheckoutShipping extends React.Component {
     try {
       event.preventDefault()
       this.props.createNewShippingInfo(this.state, this.props.user.id)
+      this.props.getShippingInfo(this.state)
     } catch (error) {
       console.error('Something went wrong with saving your shipping info!')
     }
@@ -117,6 +123,12 @@ const mapDispatch = dispatch => ({
   },
   createNewShippingInfo(shippingInfo, userId) {
     dispatch(createNewShippingInfo(shippingInfo, userId))
+  },
+  getShippingInfo(shippingInfo) {
+    dispatch(getShippingInfo(shippingInfo))
+  },
+  getCart(cart) {
+    dispatch(getCart(cart))
   }
 })
 
