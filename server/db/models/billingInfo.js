@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
+const User = require('./user')
 
 const BillingInfo = db.define('billingInfo', {
   name: {

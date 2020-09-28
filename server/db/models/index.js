@@ -32,6 +32,10 @@ Item.hasMany(Cart)
 Cart.belongsTo(Item)
 User.hasOne(Cart)
 Cart.belongsTo(User)
+User.hasOne(ShippingInfo, {foreignKey: 'userId', allowNull: false})
+ShippingInfo.belongsTo(User)
+User.hasOne(BillingInfo)
+BillingInfo.belongsTo(User)
 
 module.exports = {
   User,

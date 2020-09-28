@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {me} from '../store/user'
 import {createNewBillingInfo} from '../store/checkout'
+import {Link} from 'react-router-dom'
 
 class CheckoutBilling extends React.Component {
   constructor(props) {
@@ -69,7 +70,10 @@ class CheckoutBilling extends React.Component {
             onChange={this.handleChange}
           />
 
-          <button type="submit">CONFIRM ORDER</button>
+          <button type="submit">SAVE BILLING INFO</button>
+          <Link to="/checkoutConfirm">
+            <button type="submit">CONFIRM ORDER</button>
+          </Link>
         </form>
       </div>
     )

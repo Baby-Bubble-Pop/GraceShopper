@@ -26,13 +26,14 @@ class CheckoutShipping extends React.Component {
   handleSubmit(event) {
     try {
       event.preventDefault()
-      this.props.createNewShippingInfo(this.state)
+      this.props.createNewShippingInfo(this.state, this.props.user.id)
     } catch (error) {
       console.error('Something went wrong with saving your shipping info!')
     }
   }
 
   render() {
+    console.log(this.props)
     const {
       streetAddressLine1,
       streetAddressLine2,
@@ -106,6 +107,7 @@ class CheckoutShipping extends React.Component {
 }
 
 const mapState = state => ({
+  user: state.user,
   shippingInfo: state.shippingInfo
 })
 
@@ -113,8 +115,8 @@ const mapDispatch = dispatch => ({
   getUser() {
     dispatch(me())
   },
-  createNewShippingInfo(shippingInfo) {
-    dispatch(createNewShippingInfo(shippingInfo))
+  createNewShippingInfo(shippingInfo, userId) {
+    dispatch(createNewShippingInfo(shippingInfo, userId))
   }
 })
 

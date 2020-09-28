@@ -9,6 +9,7 @@ const initialState = {
 //ACTION TYPES
 const CREATED_NEW_SHIPPINGINFO = 'CREATE_NEW_SHIPPINGINFO'
 const CREATED_NEW_BILLINGINFO = 'CREATE_NEW_BILLINGINFO'
+const GOT_SHIPPINGINFO = 'GOT_SHIPPINGINFO'
 
 //ACTION CREATORS
 const createdNewShippingInfo = shippingInfo => ({
@@ -20,10 +21,23 @@ const createdNewBillingInfo = billingInfo => ({
   billingInfo
 })
 
+const gotShippingInfo = shippingInfo => ({
+  type: GOT_SHIPPINGINFO,
+  shippingInfo
+})
+
 //THUNK CREATORS
-export const createNewShippingInfo = shippingInfo => async dispatch => {
+export const createNewShippingInfo = (
+  shippingInfo,
+  userId
+) => async dispatch => {
   try {
-    const res = await axios.post('/api/checkout/shipping', shippingInfo)
+    let body = {
+      shippingInfo,
+      userId
+    }
+    const res = await axios.post('/api/checkout/shipping', body)
+    console.log('WHAT IS RES?', res)
     dispatch(createdNewShippingInfo(res.data))
   } catch (error) {
     console.error(
@@ -43,6 +57,17 @@ export const createNewBillingInfo = billingInfo => async dispatch => {
   }
 }
 
+export const getShippingInfo = userId => async dispatch => {
+  try {
+    const res = await axios.get('/api/checkout/confirm', userId)
+    dispatch(gotShippingInfo(res.data))
+  } catch (error) {
+    console.error(
+      'Something went wrong with the get shipping info thunk creator!'
+    )
+  }
+}
+
 //REDUCER
 export default function(state = initialState, action) {
   switch (action.type) {
@@ -50,6 +75,8 @@ export default function(state = initialState, action) {
       return {...state, shippingInfo: action.shippingInfo}
     case CREATED_NEW_BILLINGINFO:
       return {...state, billingInfo: action.billingInfo}
+    case GOT_SHIPPINGINFO:
+      return action.shippingInfo
     default:
       return state
   }

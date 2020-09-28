@@ -2,6 +2,8 @@
 const db = require('../server/db')
 const {User, Item, Cart} = require('../server/db/models')
 const users = []
+
+console.log(Object.keys(User.prototype))
 const userGenerator = num => {
   for (let i = 1; i < num; i++) {
     users.push({
