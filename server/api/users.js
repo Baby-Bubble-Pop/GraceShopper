@@ -1,6 +1,4 @@
 const router = require('express').Router()
-const {reset} = require('nodemon')
-const {Sequelize} = require('sequelize')
 const {User, Item, Cart} = require('../db/models')
 const {
   isAdmin,
