@@ -17,7 +17,7 @@ const itemGenerator = num => {
   for (let i = 1; i < num; i++) {
     items.push({
       name: `${i}`,
-      price: `${i}`,
+      price: `${i}.99`,
       quantity: 5
     })
   }
