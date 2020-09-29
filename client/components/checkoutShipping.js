@@ -22,7 +22,11 @@ class CheckoutShipping extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getCart(this.props.user.cart)
+    if (this.props.user.id) {
+      this.props.getCart(this.props.user.cart)
+    } else {
+      this.props.getCart(this.props.guestCart)
+    }
   }
 
   handleChange(event) {
@@ -31,8 +35,11 @@ class CheckoutShipping extends React.Component {
   handleSubmit(event) {
     try {
       event.preventDefault()
-      this.props.createNewShippingInfo(this.state, this.props.user.id)
+      if (this.props.user.id) {
+        this.props.createNewShippingInfo(this.state, this.props.user.id)
+      }
       this.props.getShippingInfo(this.state)
+      this.props.history.push('/checkoutBilling') // move onto next checkout form
     } catch (error) {
       console.error('Something went wrong with saving your shipping info!')
     }
@@ -102,10 +109,7 @@ class CheckoutShipping extends React.Component {
             onChange={this.handleChange}
           />
 
-          <button type="submit">SAVE SHIPPING INFO</button>
-          <Link to="/checkoutBilling">
-            <button type="submit">MOVE ON TO PAYMENT</button>
-          </Link>
+          <button type="submit">MOVE ON TO PAYMENT</button>
         </form>
       </div>
     )
@@ -114,6 +118,7 @@ class CheckoutShipping extends React.Component {
 
 const mapState = state => ({
   user: state.user,
+  guestCart: state.guestCart,
   shippingInfo: state.shippingInfo
 })
 

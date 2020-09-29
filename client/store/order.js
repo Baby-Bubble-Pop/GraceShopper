@@ -54,12 +54,24 @@ export const getCart = cart => dispatch => {
   }
 
   cart.map(item => {
-    orderCart.totalPrice += item.price * item.cart.quantity
-    const product = {
-      id: item.cart.id,
-      name: item.name,
-      quantity: item.cart.quantity,
-      price: item.price
+    let product
+    if (item.cart) {
+      // When a user is completing the checkout process, item in cart info is within item.cart
+      orderCart.totalPrice += item.price * item.cart.quantity
+      product = {
+        id: item.cart.id,
+        name: item.name,
+        quantity: item.cart.quantity,
+        price: item.price
+      }
+    } else {
+      orderCart.totalPrice += item.price * item.quantity
+      product = {
+        id: item.id,
+        name: item.name,
+        quantity: item.quantity,
+        price: item.price
+      }
     }
     orderCart.products.push(product)
   })
@@ -70,13 +82,13 @@ export const getCart = cart => dispatch => {
 export const submitOrder = order => async dispatch => {
   try {
     const res = await axios.post('/api/checkout/confirm', order)
-    dispatch(submittedOrder(res.data))
+    // dispatch(submittedOrder(res.data))
   } catch (error) {
-    console.error('There was an error with your submit order thunk creator!')
+    console.error('There was an error with your order submission!')
   }
 }
 
-//REDCUER
+//REDUCER
 export default function(state = initialOrder, action) {
   switch (action.type) {
     case GOT_SHIPPING_INFO:

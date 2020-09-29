@@ -2,12 +2,20 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const Order = db.define('order', {
-  historicalPrice: {
+  totalPrice: {
     type: Sequelize.INTEGER,
     allowNull: false
   },
-  productCount: {
+  products: {
     type: Sequelize.ARRAY(Sequelize.STRING)
+  },
+  shippingInfo: {
+    type: Sequelize.TEXT,
+    allowNull: false
+  },
+  billingInfo: {
+    type: Sequelize.TEXT,
+    allowNull: false
   }
 })
 

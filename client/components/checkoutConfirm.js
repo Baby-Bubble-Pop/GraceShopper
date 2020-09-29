@@ -5,7 +5,9 @@ import {submitOrder} from '../store/order'
 class CheckoutConfirm extends React.Component {
   constructor(props) {
     super(props)
-
+    this.state = {
+      completed: false
+    }
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
@@ -13,20 +15,20 @@ class CheckoutConfirm extends React.Component {
     try {
       event.preventDefault()
       this.props.submitOrder(this.props.order)
+      this.setState({completed: true})
     } catch (error) {
       console.error('Something went wrong with saving your billing info!')
     }
   }
 
   render() {
-    console.log(this.props)
     return (
       <div>
-        <h1>CHECKOUT</h1>
+        {!this.state.completed ? <h1>CHECKOUT</h1> : <h1>Order Receipt</h1>}
         <h3>Total Price: ${this.props.order.cart.totalPrice}</h3>
         {this.props.order.cart.products.map(product => {
           return (
-            <div>
+            <div key={product.id}>
               <p>Name: {product.name}</p>
               <p>Price: {product.price}</p>
               <p>Quantity: {product.quantity}</p>
@@ -55,8 +57,13 @@ class CheckoutConfirm extends React.Component {
         </p>
         <p>CVV: {this.props.order.billingInfo.cvv}</p>
         <p>Expiration Date: {this.props.order.billingInfo.expirationDate}</p>
-
-        <button type="submit">PLACE ORDER</button>
+        {!this.state.completed ? (
+          <form onSubmit={this.handleSubmit}>
+            <button type="submit">PLACE ORDER</button>
+          </form>
+        ) : (
+          ''
+        )}
       </div>
     )
   }

@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const {BillingInfo, ShippingInfo, User, Order} = require('../db/models')
-
+const Sequelize = require('sequelize')
 module.exports = router
 
 //POST NEW SHIPPING INFO
@@ -30,9 +30,23 @@ router.post('/billing', async (req, res, next) => {
 })
 
 //GET SHIPPING AND BILLING INFO FOR FINAL CONFIRMATION
-router.get('/confirm', async (req, res, next) => {
+router.post('/confirm', async (req, res, next) => {
+  let products = req.body.cart.products.map(item => {
+    return JSON.stringify(item)
+  })
+  let shippingInfo = JSON.stringify(req.body.shippingInfo)
+  let billingInfo = JSON.stringify(req.body.billingInfo)
   try {
-    const newOrder = await Order.create(req.body)
+    const newOrder = await Order.create({
+      totalPrice: req.body.cart.totalPrice,
+      products,
+      shippingInfo,
+      billingInfo
+    })
+    if (req.user) {
+      // If the user is logged in, add to their purchase history
+      let user = await User.findByPk(req.user.id)
+    }
     res.json(newOrder)
   } catch (error) {
     next(error)

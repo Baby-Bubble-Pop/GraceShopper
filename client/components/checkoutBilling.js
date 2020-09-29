@@ -3,7 +3,6 @@ import {connect} from 'react-redux'
 import {me} from '../store/user'
 import {createNewBillingInfo} from '../store/checkout'
 import {getBillingInfo} from '../store/order'
-import {Link} from 'react-router-dom'
 
 class CheckoutBilling extends React.Component {
   constructor(props) {
@@ -25,8 +24,11 @@ class CheckoutBilling extends React.Component {
   handleSubmit(event) {
     try {
       event.preventDefault()
-      this.props.createNewBillingInfo(this.state, this.props.user.id)
+      if (this.props.user.id) {
+        this.props.createNewBillingInfo(this.state, this.props.user.id)
+      }
       this.props.getBillingInfo(this.state)
+      this.props.history.push('/checkoutConfirm')
     } catch (error) {
       console.error('Something went wrong with saving your billing info!')
     }
@@ -72,10 +74,7 @@ class CheckoutBilling extends React.Component {
             onChange={this.handleChange}
           />
 
-          <button type="submit">SAVE BILLING INFO</button>
-          <Link to="/checkoutConfirm">
-            <button type="submit">CONFIRM ORDER</button>
-          </Link>
+          <button type="submit">CONFIRM ORDER</button>
         </form>
       </div>
     )
