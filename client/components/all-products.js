@@ -1,8 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchItems} from '../store'
-import {Link, Router} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import {addToCart, me} from '../store/user'
+import {addItem, addToItem} from '../store/guestCart'
 
 export class AllProducts extends React.Component {
   componentDidMount() {
@@ -29,12 +30,28 @@ export class AllProducts extends React.Component {
               <form
                 onSubmit={e => {
                   e.preventDefault()
-                  this.props.addToCart(
-                    this.props.user.id,
-                    item.id,
-                    e.target.quantity.value
-                  )
-                  this.props.getUser()
+                  if (this.props.user.id) {
+                    this.props.addToCart(
+                      this.props.user.id,
+                      this.props.item.id,
+                      e.target.quantity.value
+                    )
+                    this.props.getUser()
+                  } else {
+                    let match = false
+                    let index = 0
+                    for (let i = 0; i < this.props.guestCart.length; ++i) {
+                      if (item.id === this.props.guestCart[i].id) {
+                        match = true
+                        index = i
+                      }
+                    }
+                    if (match) {
+                      this.props.addToItem(index, e.target.quantity.value)
+                    } else {
+                      this.props.addItemGuest(item, e.target.quantity.value)
+                    }
+                  }
                 }}
               >
                 <div>
@@ -55,7 +72,8 @@ export class AllProducts extends React.Component {
 
 const mapState = state => ({
   items: state.items,
-  user: state.user
+  user: state.user,
+  guestCart: state.guestCart
 })
 
 const mapDispatch = dispatch => {
@@ -68,6 +86,12 @@ const mapDispatch = dispatch => {
     },
     getUser() {
       dispatch(me())
+    },
+    addItemGuest(item, quantity) {
+      dispatch(addItem(item, quantity))
+    },
+    addToItem(index, quantity) {
+      dispatch(addToItem(index, quantity))
     }
   }
 }
