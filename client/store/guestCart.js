@@ -18,7 +18,7 @@ export const addToItem = (index, quantity) => {
     quantity
   }
 }
-const removeItem = itemIndex => ({
+export const removeItem = itemIndex => ({
   type: REMOVE_ITEM,
   itemIndex
 })
@@ -29,13 +29,15 @@ export default function(state = defaultCart, action) {
     case ADD_ITEM:
       return [...state, action.item]
     case ADD_TO_ITEM:
-      let cart = [...state]
+      let updatedCart = [...state]
       let newQuantity =
-        Number(cart[action.index].quantity) + Number(action.quantity)
-      cart[action.index].quantity = newQuantity
-      return cart
+        Number(updatedCart[action.index].quantity) + Number(action.quantity)
+      updatedCart[action.index].quantity = newQuantity
+      return updatedCart
     case REMOVE_ITEM:
-      return state
+      let cart = [...state]
+      cart.splice(action.index, 1)
+      return cart
     default:
       return state
   }

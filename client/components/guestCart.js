@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {addItem, addToItem} from '../store/guestCart'
+import {addItem, addToItem, removeItem} from '../store/guestCart'
 
 class GuestCart extends React.Component {
   render() {
@@ -39,17 +39,29 @@ class GuestCart extends React.Component {
                 </div>
                 <button type="submit">ADD QUANTITY</button>
               </form>
-              {/* <button
-                    type="submit"
-                    onClick={() => {
-                      this.props.deleteFromCart(item.id, this.props.user.id)
-                    }}
-                  >
-                    DELETE
-                  </button> */}
+              <button
+                type="submit"
+                onClick={() => {
+                  let index = 0
+                  for (let i = 0; i < this.props.guestCart.length; ++i) {
+                    if (item.id === this.props.guestCart[i].id) {
+                      index = i
+                    }
+                  }
+                  this.props.removeItem(index)
+                }}
+              >
+                DELETE
+              </button>
             </div>
           )
         })}
+        <h2>
+          Total Price: $
+          {this.props.guestCart.reduce((sum, itemInCart) => {
+            return sum + itemInCart.price * itemInCart.quantity
+          }, 0)}
+        </h2>
       </div>
     )
   }
@@ -65,6 +77,9 @@ const mapDispatch = dispatch => ({
   },
   addToItem: (index, quantity) => {
     dispatch(addToItem(index, quantity))
+  },
+  removeItem: index => {
+    dispatch(removeItem(index))
   }
 })
 
