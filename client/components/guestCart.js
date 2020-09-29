@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {updateCart} from '../store/guestCart'
+import {Link} from 'react-router-dom'
 
 class GuestCart extends React.Component {
   constructor() {
@@ -17,6 +18,9 @@ class GuestCart extends React.Component {
     return (
       <div>
         <h1>Welcome to Your Cart!</h1>
+        <Link to="/checkoutShipping">
+          <button type="submit">CHECKOUT</button>
+        </Link>
         {this.props.guestCart.map(item => {
           return (
             <div key={item.id}>
@@ -66,10 +70,7 @@ class GuestCart extends React.Component {
             </div>
           )
         })}
-        <h2>
-          Total Price: $
-          {totalPrice.toFixed(2)}
-        </h2>
+        <h2>Total Price: ${totalPrice.toFixed(2)}</h2>
       </div>
     )
   }

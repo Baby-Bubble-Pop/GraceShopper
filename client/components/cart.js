@@ -2,16 +2,20 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {me, addToCart, deleteFromCart} from '../store/user'
+import {Link} from 'react-router-dom'
 
 class Cart extends React.Component {
   render() {
-    if (this.props.user.hasOwnProperty('cart')) {
+    if (this.props.user.cart[0] !== undefined) {
       let price = this.props.user.cart.reduce((sum, item) => {
         return sum + item.price * item.cart.quantity
       }, 0)
       return (
         <div>
           <h1>Welcome to your cart</h1>
+          <Link to="/checkoutShipping">
+            <button type="submit">CHECKOUT</button>
+          </Link>
           {this.props.user.cart.length !== 0 ? (
             this.props.user.cart.map(item => {
               return (
@@ -19,7 +23,7 @@ class Cart extends React.Component {
                   <div>
                     <img src={item.image} />
                     <p>NAME: {item.name}</p>
-                    <p>PRICE: {item.price}</p>
+                    <p>PRICE: ${item.price}</p>
                     <p>RATING: {item.rating}</p>
                     <p>DESCRIPTION: {item.description}</p>
                     <p>QUANTITY: {item.cart.quantity}</p>
@@ -63,10 +67,7 @@ class Cart extends React.Component {
           ) : (
             <div />
           )}
-          <h2>
-            Total Price: $
-            {price.toFixed(2)}
-          </h2>
+          <h2>Total Price: ${price.toFixed(2)}</h2>
         </div>
       )
     } else {

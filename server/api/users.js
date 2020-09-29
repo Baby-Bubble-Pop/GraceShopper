@@ -1,8 +1,7 @@
 const router = require('express').Router()
-const {User, Item, Cart} = require('../db/models')
+const {User, Item, Cart, ShippingInfo, BillingInfo} = require('../db/models')
 const {
   isAdmin,
-  isUser,
   isSameUserOrAdmin,
   isEngineer,
   isSameUserOrEngineer
@@ -27,36 +26,17 @@ router.get('/', isAdmin, async (req, res, next) => {
 
 router.get('/:id', isSameUserOrAdmin, async (req, res, next) => {
   // GET /api/users/:id
-
-  try {
-    const userData = await User.findByPk(req.params.id, {include: Item})
-    res.send(userData.items)
-  } catch (error) {
-    next(error)
+  if (req.user.id) {
+    try {
+      const userData = await User.findByPk(req.params.id, {
+        include: [Item, ShippingInfo, BillingInfo]
+      })
+      res.send(userData.items)
+    } catch (error) {
+      next(error)
+    }
   }
 })
-
-//IN CART MODEL:
-//added two new fields for userId and itemId
-//also added a quantity field as Matt correctly suggested-- adding a quantity field removes the need for duplicate entries
-
-//IN USER/ITEM ASSOCIATIONS IN DB/INDEX FILE
-//added a new 'foreign key' field to both associations, with unique set to false
-
-//doing the whole foreign key setup above allowed us to have duplicate entries in the Cart table,
-//which is what we were having issues with before.
-//at least I think that's what it accomplished, that was 2 hours ago and I already forgot -.-'
-
-//However, once I added the quantity field to the Cart model like you suggested, I think the above
-//became unneeded, cause then with the quantity field I just did the following in our route:
-
-//IN THE ROUTE BELOW
-//first checked to see if the user already has that item in their cart
-//if they don't, CREATE a new cart instance (aka add to cart)
-//if they do, UPDATE the quantity on that existing cart instance
-
-//IN THE CART COMPONENT
-//just edited to add an extra field to display the quantity lol
 
 //ADD TO CART
 router.put('/addItems', async (req, res, next) => {

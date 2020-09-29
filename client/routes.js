@@ -12,6 +12,9 @@ import {
   Cart,
   GuestCart,
   EditProfile,
+  CheckedOutShipping,
+  CheckedOutBilling,
+  CheckedOutConfirmed,
   AddProduct
 } from './components'
 
@@ -36,6 +39,9 @@ class Routes extends Component {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/guestcart" component={GuestCart} />
+        <Route path="/checkoutShipping" component={CheckedOutShipping} />
+        <Route path="/checkoutBilling" component={CheckedOutBilling} />
+        <Route path="/checkoutConfirm" component={CheckedOutConfirmed} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}

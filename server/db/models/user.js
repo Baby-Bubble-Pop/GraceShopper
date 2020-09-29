@@ -34,7 +34,7 @@ const User = db.define('user', {
     type: Sequelize.TEXT
   },
   purchaseHistory: {
-    type: Sequelize.ARRAY(Sequelize.TEXT)
+    type: Sequelize.TEXT
   },
   role: {
     type: Sequelize.ENUM('admin', 'engineer', 'user'),
