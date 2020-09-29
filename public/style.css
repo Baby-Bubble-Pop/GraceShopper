@@ -11,6 +11,10 @@ a {
   text-decoration: none;
 }
 
+.home-background {
+  background-image: './source2.gif';
+}
+
 nav {
   margin-top: -8px;
   align-items: center;
@@ -212,7 +216,12 @@ h1#pageHeaders {
   letter-spacing: 0.15em;
 }
 
-input[type='text'] {
+h1#navbar {
+  width: 400px;
+}
+
+input[type='text'],
+input[type='password'] {
   text-align: center;
   font-size: 20px;
 }
