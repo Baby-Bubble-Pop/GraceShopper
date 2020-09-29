@@ -36,46 +36,59 @@ class CheckoutBilling extends React.Component {
     const {name, creditCardNumber, cvv, expirationDate} = this.state
     return (
       <div>
-        <h1>CHECKOUT</h1>
-        <form onSubmit={this.handleSubmit}>
-          <h3>Billing Info</h3>
+        <h1 id="pageHeaders">CHECKOUT</h1>
+        <form id="checkout" onSubmit={this.handleSubmit}>
+          <h3 id="checkout">Billing Info</h3>
 
-          <label htmlFor="name">Name</label>
+          <label id="checkout" htmlFor="name">
+            Name
+          </label>
           <input
+            id="checkout"
             type="text"
             name="name"
             value={name}
             onChange={this.handleChange}
           />
 
-          <label htmlFor="creditCardNumber">Credit Card Number</label>
+          <label id="checkout" htmlFor="creditCardNumber">
+            Credit Card Number
+          </label>
           <input
+            id="checkout"
             type="text"
             name="creditCardNumber"
             value={creditCardNumber}
             onChange={this.handleChange}
           />
 
-          <label htmlFor="cvv">CVV</label>
+          <label id="checkout" htmlFor="cvv">
+            CVV
+          </label>
           <input
+            id="checkout"
             type="text"
             name="cvv"
             value={cvv}
             onChange={this.handleChange}
           />
 
-          <label htmlFor="expirationDate">Expiration Date</label>
+          <label id="checkout" htmlFor="expirationDate">
+            Expiration Date
+          </label>
           <input
+            id="checkout"
             type="text"
             name="expirationDate"
             value={expirationDate}
             onChange={this.handleChange}
           />
-
-          <button type="submit">SAVE BILLING INFO</button>
-          <Link to="/checkoutConfirm">
-            <button type="submit">CONFIRM ORDER</button>
-          </Link>
+          <div className="checkoutContainer">
+            <button type="submit">SAVE BILLING INFO</button>
+            <Link to="/checkoutConfirm">
+              <button type="submit">CONFIRM ORDER</button>
+            </Link>
+          </div>
         </form>
       </div>
     )

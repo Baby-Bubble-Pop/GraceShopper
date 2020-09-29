@@ -27,15 +27,20 @@ export class disconnectedEditProfile extends React.Component {
     return (
       <div>
         <h3>Edit Profile Information</h3>
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor="email">Email:</label>
+        <form id="edit" onSubmit={this.handleSubmit}>
+          <label id="edit" htmlFor="email">
+            Email:
+          </label>
           <input
+            id="edit"
             type="text"
             name="email"
             value={this.state.email}
             onChange={this.handleChange}
           />
-          <button type="submit">Submit</button>
+          <button className="edit" type="submit">
+            Submit
+          </button>
         </form>
       </div>
     )

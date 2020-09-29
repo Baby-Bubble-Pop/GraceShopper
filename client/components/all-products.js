@@ -43,13 +43,7 @@ export class AllProducts extends React.Component {
                       </label>
                       <input name="quantity" type="number" />
                     </div>
-                    <button
-                      className="addToCart"
-                      type="submit"
-                      onClick={this.props.addToCart}
-                      userId={this.props.user.id}
-                      itemID={item.id}
-                    >
+                    <button className="addToCart" type="submit">
                       ADD TO CART
                     </button>
                   </form>

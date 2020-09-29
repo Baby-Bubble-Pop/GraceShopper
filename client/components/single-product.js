@@ -13,33 +13,36 @@ export class SingleProduct extends React.Component {
   render() {
     const {name, image, price, rating, description, quantity} = this.props.item
     return (
-      <div>
-        <h1>Product Name: {name}</h1>
-        <img src={image} />
-        <form
-          onSubmit={e => {
-            e.preventDefault()
-            this.props.addToCart(
-              this.props.user.id,
-              this.props.item.id,
-              e.target.quantity.value
-            )
-            this.props.getUser()
-          }}
-        >
-          <div>
-            <label htmlFor="quantity">
-              <small>Quantity</small>
-            </label>
-            <input name="quantity" type="number" />
-          </div>
-          <button type="submit">ADD TO CART</button>
-        </form>
-
-        <h4>Price: {price}</h4>
-        <div>Rating: {rating}</div>
-        <p>Description: {description}</p>
-        <p>Quantity: {quantity}</p>
+      <div className="single-Product single-Product--2cols">
+        <div className="single-Product-single">
+          <img src={image} />
+        </div>
+        <div className="single-Product-single">
+          <h1>Product Name: {name}</h1>
+          <h4>Price: ${price}.00</h4>
+          <div>Rating: {rating}</div>
+          <p>Description: {description}Insert description about product here</p>
+          <p>Quantity: {quantity}</p>
+          <form
+            onSubmit={e => {
+              e.preventDefault()
+              this.props.addToCart(
+                this.props.user.id,
+                this.props.item.id,
+                e.target.quantity.value
+              )
+              this.props.getUser()
+            }}
+          >
+            <div>
+              <label htmlFor="quantity">
+                <small>Quantity</small>
+              </label>
+              <input name="quantity" type="number" />
+            </div>
+            <button type="submit">ADD TO CART</button>
+          </form>
+        </div>
       </div>
     )
   }

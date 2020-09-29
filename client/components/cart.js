@@ -8,49 +8,61 @@ class Cart extends React.Component {
     if (this.props.user.hasOwnProperty('cart')) {
       return (
         <div>
-          <h1>Welcome to your cart</h1>
+          <h1 id="pageHeaders">Welcome to your cart</h1>
           <Link to="/checkoutShipping">
-            <button type="submit">CHECKOUT</button>
+            <button className="checkout" type="submit">
+              CHECKOUT
+            </button>
           </Link>
           {this.props.user.cart.length !== 0 ? (
             this.props.user.cart.map(item => {
               return (
-                <div key={item.id}>
-                  <div>
+                <div className="cart-Table cart-Table--6cols" key={item.id}>
+                  <div className="cart-Table-single">
                     <img src={item.image} />
+                  </div>
+                  <div className="cart-Table-single">
                     <p>NAME: {item.name}</p>
+                  </div>
+                  <div className="cart-Table-single">
                     <p>PRICE: {item.price}</p>
-                    <p>RATING: {item.rating}</p>
-                    <p>DESCRIPTION: {item.description}</p>
+                  </div>
+                  <div className="cart-Table-single">
                     <p>QUANTITY: {item.cart.quantity}</p>
                   </div>
-                  <form
-                    onSubmit={e => {
-                      e.preventDefault()
-                      this.props.addToCart(
-                        this.props.user.id,
-                        item.id,
-                        e.target.quantity.value
-                      )
-                      this.props.getUser()
-                    }}
-                  >
-                    <div>
-                      <label htmlFor="quantity">
-                        <small>Quantity</small>
-                      </label>
-                      <input name="quantity" type="number" />
-                    </div>
-                    <button type="submit">ADD QUANTITY</button>
-                  </form>
-                  <button
-                    type="submit"
-                    onClick={() => {
-                      this.props.deleteFromCart(item.id, this.props.user.id)
-                    }}
-                  >
-                    DELETE
-                  </button>
+
+                  <div className="cart-Table-single">
+                    <form
+                      onSubmit={e => {
+                        e.preventDefault()
+                        this.props.addToCart(
+                          this.props.user.id,
+                          item.id,
+                          e.target.quantity.value
+                        )
+                        this.props.getUser()
+                      }}
+                    >
+                      <div>
+                        <label htmlFor="quantity">
+                          <small>Quantity</small>
+                        </label>
+                        <input name="quantity" type="number" />
+                      </div>
+                      <button type="submit">ADD QUANTITY</button>
+                    </form>
+                  </div>
+
+                  <div className="cart-Table-single">
+                    <button
+                      type="submit"
+                      onClick={() => {
+                        this.props.deleteFromCart(item.id, this.props.user.id)
+                      }}
+                    >
+                      DELETE
+                    </button>
+                  </div>
                 </div>
               )
             })
