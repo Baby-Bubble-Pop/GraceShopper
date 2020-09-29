@@ -3,8 +3,11 @@ const db = require('../db')
 
 const Order = db.define('order', {
   totalPrice: {
-    type: Sequelize.INTEGER,
-    allowNull: false
+    type: Sequelize.DECIMAL,
+    allowNull: false,
+    get() {
+      return Number(parseFloat(this.getDataValue('price')).toFixed(2))
+    }
   },
   products: {
     type: Sequelize.ARRAY(Sequelize.STRING)

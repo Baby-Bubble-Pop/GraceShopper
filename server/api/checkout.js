@@ -44,7 +44,10 @@ router.post('/confirm', async (req, res, next) => {
     })
     if (req.user) {
       // If the user is logged in, add to their purchase history
-      let user = await User.findByPk(req.user.id)
+      let user = req.user
+      user.setItems([])
+
+      user.save()
     }
     res.json(newOrder)
   } catch (error) {

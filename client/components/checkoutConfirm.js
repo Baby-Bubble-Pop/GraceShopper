@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {clearCart} from '../store'
 import {submitOrder} from '../store/order'
 
 class CheckoutConfirm extends React.Component {
@@ -15,6 +16,7 @@ class CheckoutConfirm extends React.Component {
     try {
       event.preventDefault()
       this.props.submitOrder(this.props.order)
+      this.props.clearCart(this.props.order.cart.products)
       this.setState({completed: true})
     } catch (error) {
       console.error('Something went wrong with saving your billing info!')
@@ -76,6 +78,9 @@ const mapState = state => ({
 const mapDispatch = dispatch => ({
   submitOrder(order) {
     dispatch(submitOrder(order))
+  },
+  clearCart(cart) {
+    dispatch(clearCart(cart))
   }
 })
 

@@ -26,14 +26,15 @@ router.get('/', isAdmin, async (req, res, next) => {
 
 router.get('/:id', isSameUserOrAdmin, async (req, res, next) => {
   // GET /api/users/:id
-
-  try {
-    const userData = await User.findByPk(req.params.id, {
-      include: [Item, ShippingInfo, BillingInfo]
-    })
-    res.send(userData.items)
-  } catch (error) {
-    next(error)
+  if (req.user.id) {
+    try {
+      const userData = await User.findByPk(req.params.id, {
+        include: [Item, ShippingInfo, BillingInfo]
+      })
+      res.send(userData.items)
+    } catch (error) {
+      next(error)
+    }
   }
 })
 

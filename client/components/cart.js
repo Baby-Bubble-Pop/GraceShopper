@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom'
 
 class Cart extends React.Component {
   render() {
-    if (this.props.user.hasOwnProperty('cart')) {
+    if (this.props.user.cart[0] !== undefined) {
       let price = this.props.user.cart.reduce((sum, item) => {
         return sum + item.price * item.cart.quantity
       }, 0)
