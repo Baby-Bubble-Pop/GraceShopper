@@ -33,7 +33,7 @@ export class AllProducts extends React.Component {
                   if (this.props.user.id) {
                     this.props.addToCart(
                       this.props.user.id,
-                      this.props.item.id,
+                      item.id,
                       e.target.quantity.value
                     )
                     this.props.getUser()
@@ -52,13 +52,19 @@ export class AllProducts extends React.Component {
                       this.props.addItemGuest(item, e.target.quantity.value)
                     }
                   }
+                  e.target.quantity.value = ''
                 }}
               >
                 <div>
                   <label htmlFor="quantity">
                     <small>Quantity</small>
                   </label>
-                  <input name="quantity" type="number" />
+                  <input
+                    name="quantity"
+                    type="number"
+                    min="1"
+                    max={item.quantity}
+                  />
                 </div>
                 <button type="submit">ADD TO CART</button>
               </form>

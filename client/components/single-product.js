@@ -45,18 +45,24 @@ export class SingleProduct extends React.Component {
                 )
               }
             }
+            e.target.quantity.value = ''
           }}
         >
           <div>
             <label htmlFor="quantity">
               <small>Quantity</small>
             </label>
-            <input name="quantity" type="number" />
+            <input
+              name="quantity"
+              type="number"
+              min="1"
+              max={this.props.item.quantity}
+            />
           </div>
           <button type="submit">ADD TO CART</button>
         </form>
 
-        <h4>Price: {price}</h4>
+        <p>Price: ${price}</p>
         <div>Rating: {rating}</div>
         <p>Description: {description}</p>
         <p>Quantity: {quantity}</p>

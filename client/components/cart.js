@@ -1,3 +1,4 @@
+/* eslint-disable no-return-assign */
 import React from 'react'
 import {connect} from 'react-redux'
 import {me, addToCart, deleteFromCart} from '../store/user'
@@ -5,6 +6,9 @@ import {me, addToCart, deleteFromCart} from '../store/user'
 class Cart extends React.Component {
   render() {
     if (this.props.user.hasOwnProperty('cart')) {
+      let price = this.props.user.cart.data.reduce((sum, item) => {
+        return sum + item.price * item.cart.quantity
+      }, 0)
       return (
         <div>
           <h1>Welcome to your cart</h1>
@@ -28,6 +32,7 @@ class Cart extends React.Component {
                         item.id,
                         e.target.quantity.value
                       )
+                      e.target.quantity.value = ''
                       this.props.getUser()
                     }}
                   >
@@ -35,7 +40,12 @@ class Cart extends React.Component {
                       <label htmlFor="quantity">
                         <small>Quantity</small>
                       </label>
-                      <input name="quantity" type="number" />
+                      <input
+                        name="quantity"
+                        type="number"
+                        min="0"
+                        max={item.quantity}
+                      />
                     </div>
                     <button type="submit">ADD QUANTITY</button>
                   </form>
@@ -55,9 +65,7 @@ class Cart extends React.Component {
           )}
           <h2>
             Total Price: $
-            {this.props.user.cart.data.reduce((sum, item) => {
-              return sum + item.price * item.cart.quantity
-            }, 0)}
+            {price.toFixed(2)}
           </h2>
         </div>
       )

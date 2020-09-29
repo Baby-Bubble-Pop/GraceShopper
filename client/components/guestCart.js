@@ -4,6 +4,9 @@ import {addItem, addToItem, removeItem} from '../store/guestCart'
 
 class GuestCart extends React.Component {
   render() {
+    let price = this.props.guestCart.reduce((sum, itemInCart) => {
+      return sum + itemInCart.price * itemInCart.quantity
+    }, 0)
     return (
       <div>
         <h1>Welcome to Your Cart!</h1>
@@ -29,13 +32,14 @@ class GuestCart extends React.Component {
                   } else {
                     this.props.addItemGuest(item, e.target.quantity.value)
                   }
+                  e.target.quantity.value = ''
                 }}
               >
                 <div>
                   <label htmlFor="quantity">
                     <small>Quantity</small>
                   </label>
-                  <input name="quantity" type="number" />
+                  <input name="quantity" type="number" min="0" />
                 </div>
                 <button type="submit">ADD QUANTITY</button>
               </form>
@@ -58,9 +62,7 @@ class GuestCart extends React.Component {
         })}
         <h2>
           Total Price: $
-          {this.props.guestCart.reduce((sum, itemInCart) => {
-            return sum + itemInCart.price * itemInCart.quantity
-          }, 0)}
+          {price.toFixed(2)}
         </h2>
       </div>
     )
