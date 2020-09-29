@@ -1,4 +1,5 @@
 import axios from 'axios'
+import history from '../history'
 
 //INITIAL STATE
 const initialItems = []
@@ -23,8 +24,10 @@ export const fetchItems = () => async dispatch => {
 }
 export const createItem = item => async dispatch => {
   try {
+    console.log(item)
     const response = await axios.post('/api/items', item)
     dispatch(addItem(response.data))
+    history.push('/products')
   } catch (error) {
     console.error('Error in createItem thunk creator', error)
     throw error

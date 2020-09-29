@@ -9,21 +9,23 @@ class AddProduct extends React.Component {
   }
   handleSubmit(e) {
     e.preventDefault()
+    console.log(e.target.category.value)
     let itemBody = {
       name: e.target.name.value,
       description: e.target.description.value,
-      price: e.target.name.price,
-      VAT: e.target.name.vat,
-      rating: e.target.name.rating,
-      quantity: e.target.name.quantity,
-      grossRegisteredTonnage: e.target.name.grossTonnage,
-      guests: e.target.name.guests,
-      beam: e.target.name.beam,
-      draft: e.target.name.draft,
-      length: e.target.name.length,
-      image: e.target.name.image
+      price: Number(e.target.price.value),
+      VAT: e.target.vat.value,
+      rating: e.target.rating.value,
+      quantity: e.target.quantity.value,
+      grossRegisteredTonnage: e.target.grossTonnage.value,
+      guests: e.target.guests.value,
+      beam: e.target.beam.value,
+      draft: e.target.draft.value,
+      length: e.target.length.value,
+      image: e.target.image.value,
+      category: e.target.category.value.toLowerCase()
     }
-    this.props.addItem(itemBody)
+    this.props.createItem(itemBody)
   }
   render() {
     return (
@@ -51,55 +53,65 @@ class AddProduct extends React.Component {
             <label htmlFor="vat">
               <small>VAT</small>
             </label>
-            <input name="vat" type="text" />
+            <input name="vat" type="text" required />
           </div>
           <div>
             <label htmlFor="rating">
               <small>Rating</small>
             </label>
-            <input name="rating" type="text" />
+            <input name="rating" type="text" min="0" max="5" required />
           </div>
           <div>
             <label htmlFor="quantity">
               <small>Quantity</small>
             </label>
-            <input name="quantity" type="text" />
+            <input name="quantity" type="text" required />
           </div>
           <div>
             <label htmlFor="grossTonnage">
               <small>Gross Registered Tonnage</small>
             </label>
-            <input name="grossTonnage" type="text" />
+            <input name="grossTonnage" type="text" required />
           </div>
           <div>
             <label htmlFor="guests">
               <small>Guests</small>
             </label>
-            <input name="guests" type="text" />
+            <input name="guests" type="text" required />
           </div>
           <div>
             <label htmlFor="beam">
               <small>Beam</small>
             </label>
-            <input name="beam" type="text" />
+            <input name="beam" type="text" required />
           </div>
           <div>
             <label htmlFor="draft">
               <small>Draft</small>
             </label>
-            <input name="draft" type="text" />
+            <input name="draft" type="text" required />
           </div>
           <div>
             <label htmlFor="length">
               <small>Length</small>
             </label>
-            <input name="length" type="text" />
+            <input name="length" type="text" required />
           </div>
           <div>
             <label htmlFor="image">
               <small>Image URL</small>
             </label>
             <input name="image" type="text" />
+          </div>
+          <div>
+            <label htmlFor="category">
+              <small>Category</small>
+            </label>
+            <select name="category">
+              <option>Big</option>
+              <option>Huge</option>
+              <option>Mega</option>
+            </select>
           </div>
           <button type="submit">SUBMIT</button>
         </form>
@@ -110,10 +122,10 @@ class AddProduct extends React.Component {
 
 const mapDispatch = dispatch => {
   return {
-    addItem(item) {
+    createItem(item) {
       dispatch(createItem(item))
     }
   }
 }
 
-export default connect(mapDispatch)(AddProduct)
+export default connect(null, mapDispatch)(AddProduct)

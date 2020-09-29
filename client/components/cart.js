@@ -6,14 +6,14 @@ import {me, addToCart, deleteFromCart} from '../store/user'
 class Cart extends React.Component {
   render() {
     if (this.props.user.hasOwnProperty('cart')) {
-      let price = this.props.user.cart.data.reduce((sum, item) => {
+      let price = this.props.user.cart.reduce((sum, item) => {
         return sum + item.price * item.cart.quantity
       }, 0)
       return (
         <div>
           <h1>Welcome to your cart</h1>
-          {this.props.user.cart.data.length !== 0 ? (
-            this.props.user.cart.data.map(item => {
+          {this.props.user.cart.length !== 0 ? (
+            this.props.user.cart.map(item => {
               return (
                 <div key={item.id}>
                   <div>

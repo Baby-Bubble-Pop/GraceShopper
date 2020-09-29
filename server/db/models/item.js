@@ -30,22 +30,28 @@ const Item = db.define('item', {
     }
   },
   quantity: {
-    type: Sequelize.INTEGER
+    type: Sequelize.INTEGER,
+    defaultValue: 1
   },
   grossRegisteredTonnage: {
-    type: Sequelize.INTEGER
+    type: Sequelize.INTEGER,
+    defaultValue: 0
   },
   guests: {
-    type: Sequelize.INTEGER
+    type: Sequelize.INTEGER,
+    defaultValue: 1
   },
   beam: {
-    type: Sequelize.DECIMAL
+    type: Sequelize.DECIMAL,
+    defaultValue: 0
   },
   draft: {
-    type: Sequelize.DECIMAL
+    type: Sequelize.DECIMAL,
+    defaultValue: 0
   },
   length: {
-    type: Sequelize.DECIMAL
+    type: Sequelize.DECIMAL,
+    defaultValue: 0
   },
   image: {
     type: Sequelize.TEXT,
