@@ -3,16 +3,13 @@ import {connect} from 'react-redux'
 import {fetchItems} from '../store'
 import {Link} from 'react-router-dom'
 import {addToCart, me} from '../store/user'
-import {addItem, addToItem} from '../store/guestCart'
+import {addItem, updateCart} from '../store/guestCart'
 
 export class AllProducts extends React.Component {
   componentDidMount() {
     this.props.fetchItems()
     this.props.getUser()
   }
-
-  addToCart() {}
-
   render() {
     return (
       <div className="all-products">
@@ -36,7 +33,6 @@ export class AllProducts extends React.Component {
                       item.id,
                       e.target.quantity.value
                     )
-                    this.props.getUser()
                   } else {
                     let match = false
                     let index = 0
@@ -47,11 +43,15 @@ export class AllProducts extends React.Component {
                       }
                     }
                     if (match) {
-                      this.props.addToItem(index, e.target.quantity.value)
+                      this.props.guestCart[index].quantity =
+                        Number(this.props.guestCart[index].quantity) +
+                        Number(e.target.quantity.value)
+                      this.props.updateCart(this.props.guestCart)
                     } else {
                       this.props.addItemGuest(item, e.target.quantity.value)
                     }
                   }
+                  this.props.getUser()
                   e.target.quantity.value = ''
                 }}
               >
@@ -96,8 +96,8 @@ const mapDispatch = dispatch => {
     addItemGuest(item, quantity) {
       dispatch(addItem(item, quantity))
     },
-    addToItem(index, quantity) {
-      dispatch(addToItem(index, quantity))
+    updateCart(cart) {
+      dispatch(updateCart(cart))
     }
   }
 }
