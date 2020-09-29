@@ -9,7 +9,6 @@ router.post('/shipping', async (req, res, next) => {
     const newShippingInfo = await ShippingInfo.create(req.body.shippingInfo)
     const user = await User.findByPk(req.body.userId)
     user.setShippingInfo(newShippingInfo)
-    // console.log('REQ.BODY SHIPPING', req)
     res.json(newShippingInfo)
   } catch (error) {
     next(error)
@@ -55,7 +54,7 @@ router.post('/confirm', async (req, res, next) => {
 
 //refactor billing and Shipping Info and associate them to user table- DONE I THINK
 //update checkout store so that they can get that route
-//order confirmation page should pull cart info from this.props.user.data.cart
-//order confirmation page should pull billing info from this.props.user.billing
-//order confirmation page should pull shipping info from this.props.user.shipping
+//order confirmation page should pull information from order store component
+//order confirmation page should pull billing info from order.billingInfo
+//order confirmation page should pull shipping info from order.shippingInfo
 //order confirmation page should add up price of items and add tax and shipping fees

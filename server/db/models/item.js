@@ -16,6 +16,9 @@ const Item = db.define('item', {
       return Number(parseFloat(this.getDataValue('price')).toFixed(2))
     }
   },
+  VAT: {
+    type: Sequelize.DECIMAL
+  },
   rating: {
     type: Sequelize.DECIMAL(2, 1),
     validate: {
@@ -29,16 +32,40 @@ const Item = db.define('item', {
   quantity: {
     type: Sequelize.INTEGER
   },
+  grossRegisteredTonnage: {
+    type: Sequelize.INTEGER
+  },
+  guests: {
+    type: Sequelize.INTEGER
+  },
+  beam: {
+    type: Sequelize.DECIMAL
+  },
+  draft: {
+    type: Sequelize.DECIMAL
+  },
+  length: {
+    type: Sequelize.DECIMAL
+  },
   image: {
     type: Sequelize.TEXT,
-    defaultValue:
-      'https://upload.wikimedia.org/wikipedia/commons/4/4f/3_D-Box.jpg'
+    defaultValue: 'https://media4.giphy.com/media/Veqe3tZNFqX6izIEZm/giphy.gif'
+  },
+  category: {
+    type: Sequelize.ENUM('big', 'huge', 'mega'),
+    defaultValue: 'big'
   }
 })
 
-//turns price into # of pennies
-// Item.addHook('beforeCreate', (item, options) => {
-//   item.price = Number(parseFloat(item.price).toFixed(2))
-// })
+//put yacht in category based on size
+Item.addHook('beforeCreate', (item, options) => {
+  if (item.length < 50) {
+    item.category = 'big'
+  } else if (item.length >= 50 && item.length < 100) {
+    item.category = 'huge'
+  } else {
+    item.category = 'mega'
+  }
+})
 
 module.exports = Item

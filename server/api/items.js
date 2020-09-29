@@ -14,6 +14,16 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+// POST /api/items
+router.post('/', async (req, res, next) => {
+  try {
+    const item = await Item.create(req.body)
+    res.send(item)
+  } catch (err) {
+    next(err)
+  }
+})
+
 // GET /api/items/:id
 router.get('/:id', async (req, res, next) => {
   try {

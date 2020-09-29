@@ -1,3 +1,4 @@
+/* eslint-disable no-return-assign */
 import React from 'react'
 import {connect} from 'react-redux'
 import {me, addToCart, deleteFromCart} from '../store/user'
@@ -6,6 +7,9 @@ import {Link} from 'react-router-dom'
 class Cart extends React.Component {
   render() {
     if (this.props.user.hasOwnProperty('cart')) {
+      let price = this.props.user.cart.reduce((sum, item) => {
+        return sum + item.price * item.cart.quantity
+      }, 0)
       return (
         <div>
           <h1>Welcome to your cart</h1>
@@ -19,7 +23,7 @@ class Cart extends React.Component {
                   <div>
                     <img src={item.image} />
                     <p>NAME: {item.name}</p>
-                    <p>PRICE: {item.price}</p>
+                    <p>PRICE: ${item.price}</p>
                     <p>RATING: {item.rating}</p>
                     <p>DESCRIPTION: {item.description}</p>
                     <p>QUANTITY: {item.cart.quantity}</p>
@@ -32,6 +36,7 @@ class Cart extends React.Component {
                         item.id,
                         e.target.quantity.value
                       )
+                      e.target.quantity.value = ''
                       this.props.getUser()
                     }}
                   >
@@ -39,7 +44,12 @@ class Cart extends React.Component {
                       <label htmlFor="quantity">
                         <small>Quantity</small>
                       </label>
-                      <input name="quantity" type="number" />
+                      <input
+                        name="quantity"
+                        type="number"
+                        min="0"
+                        max={item.quantity}
+                      />
                     </div>
                     <button type="submit">ADD QUANTITY</button>
                   </form>
@@ -57,12 +67,7 @@ class Cart extends React.Component {
           ) : (
             <div />
           )}
-          <h2>
-            Total Price: $
-            {this.props.user.cart.reduce((sum, item) => {
-              return sum + item.price * item.cart.quantity
-            }, 0)}
-          </h2>
+          <h2>Total Price: ${price.toFixed(2)}</h2>
         </div>
       )
     } else {

@@ -50,8 +50,6 @@ describe('AllProducts', () => {
     }
   ]
 
-  //for each similar to seed file
-
   beforeEach(() => {
     allProducts = shallow(
       <AllProducts items={items} fetchItems={fetchItems} getUser={getUser} />
@@ -65,9 +63,15 @@ describe('AllProducts', () => {
     )
   })
 
-  it('filters products by category', () => {})
+  //future test spec
+  // it('filters products by category', () => {
 
-  it('puts producst in order by price and rating', () => {})
+  // })
+
+  //future test spec
+  // it('puts products in order by price and rating', () => {
+
+  // })
 
   it('renders prices correctly', () => {
     expect(allProducts.find('.all-products').text()).to.include('$1')
