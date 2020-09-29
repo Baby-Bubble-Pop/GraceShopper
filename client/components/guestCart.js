@@ -1,10 +1,17 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {addItem, addToItem, removeItem} from '../store/guestCart'
+import {updateCart} from '../store/guestCart'
 
 class GuestCart extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      rerender: null
+    }
+  }
   render() {
-    let price = this.props.guestCart.reduce((sum, itemInCart) => {
+    console.log('RENDERING')
+    let totalPrice = this.props.guestCart.reduce((sum, itemInCart) => {
       return sum + itemInCart.price * itemInCart.quantity
     }, 0)
     return (
@@ -19,19 +26,15 @@ class GuestCart extends React.Component {
               <form
                 onSubmit={e => {
                   e.preventDefault()
-                  let match = false
-                  let index = 0
                   for (let i = 0; i < this.props.guestCart.length; ++i) {
                     if (item.id === this.props.guestCart[i].id) {
-                      match = true
-                      index = i
+                      this.props.guestCart[i].quantity =
+                        Number(this.props.guestCart[i].quantity) +
+                        Number(e.target.quantity.value)
+                      this.props.updateCart(this.props.guestCart)
                     }
                   }
-                  if (match) {
-                    this.props.addToItem(index, e.target.quantity.value)
-                  } else {
-                    this.props.addItemGuest(item, e.target.quantity.value)
-                  }
+                  this.setState({rerender: null})
                   e.target.quantity.value = ''
                 }}
               >
@@ -52,7 +55,10 @@ class GuestCart extends React.Component {
                       index = i
                     }
                   }
-                  this.props.removeItem(index)
+                  let cart = this.props.guestCart
+                  cart.splice(index, 1)
+                  this.props.updateCart(cart)
+                  this.setState({rerender: null})
                 }}
               >
                 DELETE
@@ -62,7 +68,7 @@ class GuestCart extends React.Component {
         })}
         <h2>
           Total Price: $
-          {price.toFixed(2)}
+          {totalPrice.toFixed(2)}
         </h2>
       </div>
     )
@@ -74,14 +80,8 @@ const mapState = state => ({
 })
 
 const mapDispatch = dispatch => ({
-  addItemGuest: (item, quantity) => {
-    dispatch(addItem(item, quantity))
-  },
-  addToItem: (index, quantity) => {
-    dispatch(addToItem(index, quantity))
-  },
-  removeItem: index => {
-    dispatch(removeItem(index))
+  updateCart: cart => {
+    dispatch(updateCart(cart))
   }
 })
 

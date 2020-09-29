@@ -1,43 +1,34 @@
 let defaultCart = []
 
 const ADD_ITEM = 'ADD_ITEM'
-const REMOVE_ITEM = 'REMOVE_ITEM'
-const ADD_TO_ITEM = 'ADD_TO_ITEM'
+const UPDATE_CART = 'UPDATE_CART'
 
 export const addItem = (item, quantity) => {
-  item.quantity = quantity
-  return {
-    type: ADD_ITEM,
-    item
-  }
-}
-export const addToItem = (index, quantity) => {
-  return {
-    type: ADD_TO_ITEM,
-    index,
+  let itemCopy = {
+    id: item.id,
+    name: item.name,
+    price: item.price,
     quantity
   }
+  return {
+    type: ADD_ITEM,
+    item: itemCopy
+  }
 }
-export const removeItem = itemIndex => ({
-  type: REMOVE_ITEM,
-  itemIndex
-})
+export const updateCart = cart => {
+  return {
+    type: UPDATE_CART,
+    cart
+  }
+}
 
 // REDUCER
 export default function(state = defaultCart, action) {
   switch (action.type) {
     case ADD_ITEM:
       return [...state, action.item]
-    case ADD_TO_ITEM:
-      let updatedCart = [...state]
-      let newQuantity =
-        Number(updatedCart[action.index].quantity) + Number(action.quantity)
-      updatedCart[action.index].quantity = newQuantity
-      return updatedCart
-    case REMOVE_ITEM:
-      let cart = [...state]
-      cart.splice(action.index, 1)
-      return cart
+    case UPDATE_CART:
+      return action.cart
     default:
       return state
   }

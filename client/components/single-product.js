@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {fetchSingleItem} from '../store/singleItem'
 import {addToCart, me} from '../store/user'
-import {addItem, addToItem} from '../store/guestCart'
+import {addItem, updateCart} from '../store/guestCart'
 
 export class SingleProduct extends React.Component {
   componentDidMount() {
@@ -26,7 +26,6 @@ export class SingleProduct extends React.Component {
                 this.props.item.id,
                 e.target.quantity.value
               )
-              this.props.getUser()
             } else {
               let match = false
               let index = 0
@@ -37,7 +36,10 @@ export class SingleProduct extends React.Component {
                 }
               }
               if (match) {
-                this.props.addToItem(index, e.target.quantity.value)
+                this.props.guestCart[index].quantity =
+                  Number(this.props.guestCart[index].quantity) +
+                  Number(e.target.quantity.value)
+                this.props.updateCart(this.props.guestCart)
               } else {
                 this.props.addItemGuest(
                   this.props.item,
@@ -45,6 +47,7 @@ export class SingleProduct extends React.Component {
                 )
               }
             }
+            this.props.getUser()
             e.target.quantity.value = ''
           }}
         >
@@ -91,8 +94,8 @@ const mapDispatch = dispatch => {
     addItemGuest(item, quantity) {
       dispatch(addItem(item, quantity))
     },
-    addToItem(index, quantity) {
-      dispatch(addToItem(index, quantity))
+    updateCart(cart) {
+      dispatch(updateCart(cart))
     }
   }
 }
