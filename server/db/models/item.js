@@ -49,14 +49,23 @@ const Item = db.define('item', {
   },
   image: {
     type: Sequelize.TEXT,
-    defaultValue:
-      'https://www.esquireme.com/public/styles/full_img/public/images/2019/08/04/jeff-bezos-yacht.jpg'
+    defaultValue: 'https://media4.giphy.com/media/Veqe3tZNFqX6izIEZm/giphy.gif'
+  },
+  category: {
+    type: Sequelize.ENUM('big', 'huge', 'mega'),
+    defaultValue: 'big'
   }
 })
 
-// turns price into # of pennies
-// Item.addHook('beforeCreate', (item, options) => {
-//   item.price = Number(parseFloat(item.price).toFixed(2))
-// })
+//put yacht in category based on size
+Item.addHook('beforeCreate', (item, options) => {
+  if (item.length < 50) {
+    item.category = 'big'
+  } else if (item.length >= 50 && item.length < 100) {
+    item.category = 'huge'
+  } else {
+    item.category = 'mega'
+  }
+})
 
 module.exports = Item
