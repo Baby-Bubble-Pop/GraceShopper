@@ -30,6 +30,7 @@ describe('Item routes', () => {
       done()
     })
 
+    //admin login middleware to simulate authorized requests to protected routes
     let session = null
     beforeEach(done => {
       request('http://localhost:8080')
@@ -82,6 +83,7 @@ describe('Item routes', () => {
     })
 
     it('POST /api/items', async () => {
+      console.log(app)
       const res = await request('http://localhost:8080')
         .post('/api/items')
         .set('Cookie', session)
