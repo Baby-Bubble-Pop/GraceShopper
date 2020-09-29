@@ -80,8 +80,6 @@ router.put('/addItems', async (req, res, next) => {
         itemId: req.body.itemId,
         quantity: req.body.quantity
       })
-      const user = await User.findByPk(req.body.userId)
-      res.send(user)
     } else {
       if (
         Number(req.body.quantity) + checkForCart[0].quantity >
@@ -92,10 +90,9 @@ router.put('/addItems', async (req, res, next) => {
       await checkForCart[0].increment({
         quantity: req.body.quantity
       })
-
-      const user = await User.findByPk(req.body.userId)
-      res.send(user)
     }
+    const user = await User.findByPk(req.body.userId)
+    res.send(user)
   } catch (err) {
     next(err)
   }
