@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {fetchSingleItem} from '../store/singleItem'
 import {addToCart, me} from '../store/user'
+import {addItem, updateCart} from '../store/guestCart'
 
 export class SingleProduct extends React.Component {
   componentDidMount() {
@@ -13,36 +14,61 @@ export class SingleProduct extends React.Component {
   render() {
     const {name, image, price, rating, description, quantity} = this.props.item
     return (
-      <div className="single-Product single-Product--2cols">
-        <div className="single-Product-single">
-          <img src={image} />
-        </div>
-        <div className="single-Product-single">
-          <h1>Product Name: {name}</h1>
-          <h4>Price: ${price}.00</h4>
-          <div>Rating: {rating}</div>
-          <p>Description: {description}Insert description about product here</p>
-          <p>Quantity: {quantity}</p>
-          <form
-            onSubmit={e => {
-              e.preventDefault()
+      <div>
+        <h1>Product Name: {name}</h1>
+        <img src={image} />
+        <form
+          onSubmit={e => {
+            e.preventDefault()
+            if (this.props.user.id) {
               this.props.addToCart(
                 this.props.user.id,
                 this.props.item.id,
                 e.target.quantity.value
               )
-              this.props.getUser()
-            }}
-          >
-            <div>
-              {/* <label htmlFor="quantity">
-                <small>Quantity</small>
-              </label> */}
-              <input name="quantity" type="number" />
-            </div>
-            <button type="submit">ADD TO CART</button>
-          </form>
-        </div>
+            } else {
+              let match = false
+              let index = 0
+              for (let i = 0; i < this.props.guestCart.length; ++i) {
+                if (this.props.item.id === this.props.guestCart[i].id) {
+                  match = true
+                  index = i
+                }
+              }
+              if (match) {
+                this.props.guestCart[index].quantity =
+                  Number(this.props.guestCart[index].quantity) +
+                  Number(e.target.quantity.value)
+                this.props.updateCart(this.props.guestCart)
+              } else {
+                this.props.addItemGuest(
+                  this.props.item,
+                  e.target.quantity.value
+                )
+              }
+            }
+            this.props.getUser()
+            e.target.quantity.value = ''
+          }}
+        >
+          <div>
+            <label htmlFor="quantity">
+              <small>Quantity</small>
+            </label>
+            <input
+              name="quantity"
+              type="number"
+              min="1"
+              max={this.props.item.quantity}
+            />
+          </div>
+          <button type="submit">ADD TO CART</button>
+        </form>
+
+        <p>Price: ${price}</p>
+        <div>Rating: {rating}</div>
+        <p>Description: {description}</p>
+        <p>Quantity: {quantity}</p>
       </div>
     )
   }
@@ -50,7 +76,8 @@ export class SingleProduct extends React.Component {
 
 const mapState = state => ({
   item: state.singleItem,
-  user: state.user
+  user: state.user,
+  guestCart: state.guestCart
 })
 
 const mapDispatch = dispatch => {
@@ -63,6 +90,12 @@ const mapDispatch = dispatch => {
     },
     getUser() {
       dispatch(me())
+    },
+    addItemGuest(item, quantity) {
+      dispatch(addItem(item, quantity))
+    },
+    updateCart(cart) {
+      dispatch(updateCart(cart))
     }
   }
 }

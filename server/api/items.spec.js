@@ -12,22 +12,25 @@ describe('Item routes', () => {
   })
 
   describe('/api/items/', () => {
-    beforeEach(() => {
-      return Item.create({
+    beforeEach(done => {
+      Item.create({
         price: 3,
         id: 1,
         name: 'pizza rolls',
         rating: 2.2
       })
+      done()
     })
-    beforeEach(() => {
-      return Item.create({
+    beforeEach(done => {
+      Item.create({
         price: 5,
         id: 2,
         name: 'mcnuggets'
       })
+      done()
     })
 
+    //admin login middleware to simulate authorized requests to protected routes
     let session = null
     beforeEach(done => {
       request('http://localhost:8080')
@@ -80,6 +83,7 @@ describe('Item routes', () => {
     })
 
     it('POST /api/items', async () => {
+      console.log(app)
       const res = await request('http://localhost:8080')
         .post('/api/items')
         .set('Cookie', session)

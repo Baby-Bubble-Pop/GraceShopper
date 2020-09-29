@@ -3,6 +3,7 @@ const Item = require('./item')
 const Cart = require('./cart')
 const BillingInfo = require('./billingInfo')
 const ShippingInfo = require('./shippingInfo')
+const Order = require('./Order')
 
 User.belongsToMany(Item, {
   through: {
@@ -42,5 +43,6 @@ module.exports = {
   Item,
   Cart,
   BillingInfo,
-  ShippingInfo
+  ShippingInfo,
+  Order
 }

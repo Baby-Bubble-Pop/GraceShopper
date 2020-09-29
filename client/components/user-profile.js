@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 
-export const disconnectedUserProfile = props => {
+export const DisconnectedUserProfile = props => {
   const {id, paymentInformation, createdAt, email} = props
   return (
     <div>
@@ -36,7 +36,7 @@ const mapState = state => {
   }
 }
 
-export const UserProfile = connect(mapState)(disconnectedUserProfile)
+export const UserProfile = connect(mapState)(DisconnectedUserProfile)
 
 UserProfile.propTypes = {
   cart: PropTypes.array,

@@ -1,13 +1,16 @@
 import axios from 'axios'
+import history from '../history'
 
 //INITIAL STATE
 const initialItems = []
 
 //ACTION TYPES
 const GET_ITEMS = 'GET_ITEMS'
+const ADD_ITEM = 'ADD_ITEM'
 
 //ACTION CREATORS
 const getItems = items => ({type: GET_ITEMS, items})
+const addItem = item => ({type: ADD_ITEM, item})
 
 //THUNK CREATORS
 export const fetchItems = () => async dispatch => {
@@ -19,12 +22,25 @@ export const fetchItems = () => async dispatch => {
     throw error
   }
 }
+export const createItem = item => async dispatch => {
+  try {
+    console.log(item)
+    const response = await axios.post('/api/items', item)
+    dispatch(addItem(response.data))
+    history.push('/products')
+  } catch (error) {
+    console.error('Error in createItem thunk creator', error)
+    throw error
+  }
+}
 
 //REDUCER
 export default function(state = initialItems, action) {
   switch (action.type) {
     case GET_ITEMS:
       return action.items
+    case ADD_ITEM:
+      return [...state, action.item]
     default:
       return state
   }

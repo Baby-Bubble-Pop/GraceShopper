@@ -10,11 +10,14 @@ const Item = db.define('item', {
     type: Sequelize.TEXT
   },
   price: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.DECIMAL,
     allowNull: false,
     get() {
-      return parseFloat(this.getDataValue('price'))
+      return Number(parseFloat(this.getDataValue('price')).toFixed(2))
     }
+  },
+  VAT: {
+    type: Sequelize.DECIMAL
   },
   rating: {
     type: Sequelize.DECIMAL(2, 1),
@@ -27,12 +30,47 @@ const Item = db.define('item', {
     }
   },
   quantity: {
-    type: Sequelize.INTEGER
+    type: Sequelize.INTEGER,
+    defaultValue: 1
+  },
+  grossRegisteredTonnage: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0
+  },
+  guests: {
+    type: Sequelize.INTEGER,
+    defaultValue: 1
+  },
+  beam: {
+    type: Sequelize.DECIMAL,
+    defaultValue: 0
+  },
+  draft: {
+    type: Sequelize.DECIMAL,
+    defaultValue: 0
+  },
+  length: {
+    type: Sequelize.DECIMAL,
+    defaultValue: 0
   },
   image: {
     type: Sequelize.TEXT,
-    defaultValue:
-      'https://upload.wikimedia.org/wikipedia/commons/4/4f/3_D-Box.jpg'
+    defaultValue: 'https://media4.giphy.com/media/Veqe3tZNFqX6izIEZm/giphy.gif'
+  },
+  category: {
+    type: Sequelize.ENUM('big', 'huge', 'mega'),
+    defaultValue: 'big'
+  }
+})
+
+//put yacht in category based on size
+Item.addHook('beforeCreate', (item, options) => {
+  if (item.length < 50) {
+    item.category = 'big'
+  } else if (item.length >= 50 && item.length < 100) {
+    item.category = 'huge'
+  } else {
+    item.category = 'mega'
   }
 })
 

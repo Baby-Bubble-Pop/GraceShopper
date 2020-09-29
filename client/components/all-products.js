@@ -3,55 +3,74 @@ import {connect} from 'react-redux'
 import {fetchItems} from '../store'
 import {Link} from 'react-router-dom'
 import {addToCart, me} from '../store/user'
+import {addItem, updateCart} from '../store/guestCart'
 
 export class AllProducts extends React.Component {
   componentDidMount() {
     this.props.fetchItems()
     this.props.getUser()
   }
-
   render() {
     return (
-      <div>
-        <h1 id="pageHeaders">ALL FULLSTACK YACHTS</h1>
-        <div className="all-product-container">
-          {this.props.items.map(item => {
-            return (
-              <div className="product-list" key={item.id}>
-                <Link to={`/products/${item.id}`}>
-                  <img id="allProducts" src={item.image} />
-                </Link>
-                <div className="product-info">
-                  <p>Placeholder Product Name {item.name}</p>
-                  <p id="price">${item.price}.00</p>
-                  {/* <p>quantity: {item.quantity}</p> */}
+      <div className="all-products">
+        <h1>All GRACESHOPPER PRODUCTS</h1>
 
-                  <form
-                    onSubmit={e => {
-                      e.preventDefault()
-                      this.props.addToCart(
-                        this.props.user.id,
-                        item.id,
-                        e.target.quantity.value
-                      )
-                      this.props.getUser()
-                    }}
-                  >
-                    <div>
-                      {/* <label htmlFor="quantity">
-                        <small>Quantity</small>
-                      </label> */}
-                      <input name="quantity" type="number" />
-                    </div>
-                    <button className="addToCart" type="submit">
-                      ADD TO CART
-                    </button>
-                  </form>
+        {this.props.items.map(item => {
+          return (
+            <div key={item.id}>
+              <Link to={`/products/${item.id}`}>
+                <img src={item.image} />
+                <p>name: {item.name}</p>
+              </Link>
+              <p>price: ${item.price}</p>
+              <p>quantity: {item.quantity}</p>
+              <form
+                onSubmit={e => {
+                  e.preventDefault()
+                  if (this.props.user.id) {
+                    this.props.addToCart(
+                      this.props.user.id,
+                      item.id,
+                      e.target.quantity.value
+                    )
+                  } else {
+                    let match = false
+                    let index = 0
+                    for (let i = 0; i < this.props.guestCart.length; ++i) {
+                      if (item.id === this.props.guestCart[i].id) {
+                        match = true
+                        index = i
+                      }
+                    }
+                    if (match) {
+                      this.props.guestCart[index].quantity =
+                        Number(this.props.guestCart[index].quantity) +
+                        Number(e.target.quantity.value)
+                      this.props.updateCart(this.props.guestCart)
+                    } else {
+                      this.props.addItemGuest(item, e.target.quantity.value)
+                    }
+                  }
+                  this.props.getUser()
+                  e.target.quantity.value = ''
+                }}
+              >
+                <div>
+                  <label htmlFor="quantity">
+                    <small>Quantity</small>
+                  </label>
+                  <input
+                    name="quantity"
+                    type="number"
+                    min="1"
+                    max={item.quantity}
+                  />
                 </div>
-              </div>
-            )
-          })}
-        </div>
+                <button type="submit">ADD TO CART</button>
+              </form>
+            </div>
+          )
+        })}
       </div>
     )
   }
@@ -59,7 +78,8 @@ export class AllProducts extends React.Component {
 
 const mapState = state => ({
   items: state.items,
-  user: state.user
+  user: state.user,
+  guestCart: state.guestCart
 })
 
 const mapDispatch = dispatch => {
@@ -72,6 +92,12 @@ const mapDispatch = dispatch => {
     },
     getUser() {
       dispatch(me())
+    },
+    addItemGuest(item, quantity) {
+      dispatch(addItem(item, quantity))
+    },
+    updateCart(cart) {
+      dispatch(updateCart(cart))
     }
   }
 }
