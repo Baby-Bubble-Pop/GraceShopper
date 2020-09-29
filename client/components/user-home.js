@@ -9,8 +9,11 @@ export const UserHome = props => {
   const {email} = props
 
   return (
-    <div>
-      <h3>Welcome, {email}</h3>
+    <div className="home-background">
+      <div>
+        <h3 id="welcome">Welcome {email}, to Fullstack Yacht Club!</h3>
+        <p id="welcome">Our yachts are better than everyone else's</p>
+      </div>
     </div>
   )
 }

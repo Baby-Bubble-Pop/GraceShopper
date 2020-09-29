@@ -6,7 +6,7 @@ export const disconnectedUserProfile = props => {
   const {id, paymentInformation, createdAt, email} = props
   return (
     <div>
-      <h3>User Information:</h3>
+      <h1 id="pageHeaders">User Information:</h1>
       <div className="profile">
         <p>Member since: {createdAt.substr(0, 4)}</p>
         <p>Member Id: {id}</p>
@@ -14,6 +14,7 @@ export const disconnectedUserProfile = props => {
         <p>Payment Information: {paymentInformation}</p>
         <p>Purchase history: </p>
         <button
+          className="edit"
           type="button"
           onClick={() => props.history.push('/profile/edit')}
         >

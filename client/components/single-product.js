@@ -35,9 +35,9 @@ export class SingleProduct extends React.Component {
             }}
           >
             <div>
-              <label htmlFor="quantity">
+              {/* <label htmlFor="quantity">
                 <small>Quantity</small>
-              </label>
+              </label> */}
               <input name="quantity" type="number" />
             </div>
             <button type="submit">ADD TO CART</button>

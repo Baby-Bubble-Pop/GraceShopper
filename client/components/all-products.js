@@ -13,7 +13,7 @@ export class AllProducts extends React.Component {
   render() {
     return (
       <div>
-        <h1 id="pageHeaders">All GRACESHOPPER PRODUCTS</h1>
+        <h1 id="pageHeaders">ALL FULLSTACK YACHTS</h1>
         <div className="all-product-container">
           {this.props.items.map(item => {
             return (
@@ -38,9 +38,9 @@ export class AllProducts extends React.Component {
                     }}
                   >
                     <div>
-                      <label htmlFor="quantity">
+                      {/* <label htmlFor="quantity">
                         <small>Quantity</small>
-                      </label>
+                      </label> */}
                       <input name="quantity" type="number" />
                     </div>
                     <button className="addToCart" type="submit">

@@ -37,9 +37,8 @@ class CheckoutBilling extends React.Component {
     return (
       <div>
         <h1 id="pageHeaders">CHECKOUT</h1>
+        <h3 id="checkout">Billing Info</h3>
         <form id="checkout" onSubmit={this.handleSubmit}>
-          <h3 id="checkout">Billing Info</h3>
-
           <label id="checkout" htmlFor="name">
             Name
           </label>
@@ -84,9 +83,13 @@ class CheckoutBilling extends React.Component {
             onChange={this.handleChange}
           />
           <div className="checkoutContainer">
-            <button type="submit">SAVE BILLING INFO</button>
+            <button className="submitCheckout" type="submit">
+              SAVE BILLING INFO
+            </button>
             <Link to="/checkoutConfirm">
-              <button type="submit">CONFIRM ORDER</button>
+              <button className="submitCheckout" type="submit">
+                CONFIRM ORDER
+              </button>
             </Link>
           </div>
         </form>

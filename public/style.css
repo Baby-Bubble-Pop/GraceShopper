@@ -12,7 +12,12 @@ a {
 }
 
 .home-background {
-  background-image: './source2.gif';
+  background-image: url('./source2.gif');
+  width: 100%;
+  background-repeat: no-repeat;
+  height: 100vh;
+  background-size: cover;
+  margin-top: -150px;
 }
 
 nav {
@@ -53,7 +58,7 @@ nav.links {
   align-items: center;
 }
 .product-list {
-  background-color: #eee7e0;
+  background-color: #ffffff;
   margin: 20px;
   width: 300px;
 }
@@ -67,8 +72,13 @@ nav.links {
   display: flex;
   flex-wrap: flex;
   align-items: center;
-  margin: auto;
+  margin-top: 30px;
+  margin-left: 150px;
   width: 80%;
+  background-color: #ffffff;
+  justify-self: center;
+  align-content: center;
+  border-bottom: 0.2px solid #33516c56;
 }
 
 .cart-Table-single {
@@ -80,6 +90,7 @@ nav.links {
 }
 
 .cart-Table-single img {
+  margin-left: 10px;
   width: 200px;
 }
 
@@ -116,6 +127,16 @@ p#price {
   font-weight: 500;
 }
 
+p#welcome {
+  width: 100%;
+  text-align: center;
+  align-items: center;
+  color: #ffffffb0;
+  text-transform: uppercase;
+  margin-top: -10px;
+  letter-spacing: 0.15em;
+}
+
 button {
   padding: 1em;
   border: none;
@@ -124,13 +145,15 @@ button {
   outline: none;
   border-radius: 10px;
   letter-spacing: 0.1em;
-  margin: 10px;
+  margin-top: 10px;
+  margin-right: 10px;
 }
 
 button.addToCart {
   background-color: #333333;
   color: white;
   text-decoration: none !important;
+  margin-bottom: 20px;
 }
 
 button.checkout {
@@ -158,6 +181,26 @@ button.edit {
   text-align: center;
 }
 
+button:hover {
+  background-color: #797887;
+}
+
+.submitCheckout {
+  background-color: #33516c;
+  color: white;
+}
+
+.addQuant {
+  background: none;
+  font-size: none;
+  text-decoration: underline;
+  margin-left: 5px;
+}
+
+.addQuant:hover {
+  background: none;
+}
+
 .checkoutContainer {
   display: flex;
   margin: auto;
@@ -173,10 +216,6 @@ button.edit {
   margin-left: 110px;
   margin-right: 110px;
   padding: 50px;
-}
-
-button:hover {
-  background-color: #797887;
 }
 
 img#allProducts {
@@ -205,6 +244,20 @@ h3#checkout {
   letter-spacing: 0.15em;
 }
 
+h3#homepage {
+  margin-top: 200px;
+  padding-top: 100px;
+}
+
+h3#welcome {
+  margin-top: 200px;
+  padding-top: 200px;
+  color: #ffffffb0;
+  font-weight: bold;
+  font-size: 2em;
+  letter-spacing: 0.05em;
+}
+
 h1#pageHeaders {
   margin-top: 150px;
   display: flex;
@@ -227,9 +280,12 @@ input[type='password'] {
 }
 
 form#checkout {
-  margin-left: 110px;
-  margin-right: 110px;
+  margin-top: 20px;
+  margin-left: 140px;
+  margin-right: 140px;
   padding: 20px;
+  background-color: #7978871e;
+  box-shadow: 9px 10px 12px -4px rgba(40, 40, 40, 0.064);
 }
 
 input#checkout {
@@ -254,8 +310,8 @@ label#edit {
   align-items: center;
 }
 
-form#login,
-form#edit {
+form#edit,
+form#login {
   /* background-color: white;
   box-shadow: 9px 10px 12px -6px rgba(0,0,0,0.16);
   border-radius: 20px; */
@@ -294,4 +350,5 @@ a#login {
   align-content: center;
   justify-content: center;
   text-align: center;
+  color: white;
 }

@@ -25,7 +25,7 @@ class Cart extends React.Component {
                     <p>NAME: {item.name}</p>
                   </div>
                   <div className="cart-Table-single">
-                    <p>PRICE: {item.price}</p>
+                    <p>PRICE: ${item.price}.00</p>
                   </div>
                   <div className="cart-Table-single">
                     <p>QUANTITY: {item.cart.quantity}</p>
@@ -44,12 +44,14 @@ class Cart extends React.Component {
                       }}
                     >
                       <div>
-                        <label htmlFor="quantity">
+                        {/* <label htmlFor="quantity">
                           <small>Quantity</small>
-                        </label>
+                        </label> */}
                         <input name="quantity" type="number" />
                       </div>
-                      <button type="submit">ADD QUANTITY</button>
+                      <button className="addQuant" type="submit">
+                        EDIT QUANTITY
+                      </button>
                     </form>
                   </div>
 
