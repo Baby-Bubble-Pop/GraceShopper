@@ -10,10 +10,10 @@ const Item = db.define('item', {
     type: Sequelize.TEXT
   },
   price: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.DECIMAL,
     allowNull: false,
     get() {
-      return parseFloat(this.getDataValue('price'))
+      return Number(parseFloat(this.getDataValue('price')).toFixed(2))
     }
   },
   rating: {
@@ -35,5 +35,10 @@ const Item = db.define('item', {
       'https://upload.wikimedia.org/wikipedia/commons/4/4f/3_D-Box.jpg'
   }
 })
+
+//turns price into # of pennies
+// Item.addHook('beforeCreate', (item, options) => {
+//   item.price = Number(parseFloat(item.price).toFixed(2))
+// })
 
 module.exports = Item

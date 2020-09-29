@@ -2,14 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 
-export const disconnectedUserProfile = props => {
+export const DisconnectedUserProfile = props => {
   const {id, paymentInformation, createdAt, email} = props
   return (
-    <div>
+    <div className="user-profile">
       <h4>User Information:</h4>
       <p>Member since: {createdAt.substr(0, 4)}</p>
       <p>Member Id: {id}</p>
-      <p>Email address: {email}</p>
+      <p className="email">Email address: {email}</p>
       <p>Payment Information: {paymentInformation}</p>
       <p>Purchase history: </p>
       <button type="button" onClick={() => props.history.push('/profile/edit')}>
@@ -30,7 +30,7 @@ const mapState = state => {
   }
 }
 
-export const UserProfile = connect(mapState)(disconnectedUserProfile)
+export const UserProfile = connect(mapState)(DisconnectedUserProfile)
 
 UserProfile.propTypes = {
   cart: PropTypes.array,
