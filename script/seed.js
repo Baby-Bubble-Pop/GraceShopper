@@ -12,18 +12,31 @@ const userGenerator = num => {
   return users
 }
 userGenerator(100)
-const items = []
-const itemGenerator = num => {
+
+const yachts = []
+const getRandomYachtSpecs = (min, max) => {
+  return Math.random() * (max - min) + min
+}
+
+const yachtGenerator = num => {
   for (let i = 1; i < num; i++) {
-    items.push({
-      name: `${i}`,
-      price: `${i}.99`,
-      quantity: 5
+    yachts.push({
+      name: `Mega-yacht ${i}`,
+      VAT: 0.1 * getRandomYachtSpecs(1000000, 3000000000),
+      price: getRandomYachtSpecs(1000000, 3000000000),
+      quantity: Math.trunc(getRandomYachtSpecs(1, 10)),
+      grossRegisteredTonnage: Math.trunc(getRandomYachtSpecs(30, 10000)),
+      guests: Math.trunc(getRandomYachtSpecs(10, 100)),
+      beam: getRandomYachtSpecs(5, 15),
+      draft: getRandomYachtSpecs(3, 10),
+      length: getRandomYachtSpecs(20, 150)
     })
   }
-  return items
+  return yachts
 }
-itemGenerator(100)
+
+yachtGenerator(100)
+
 const admins = []
 const adminGenerator = num => {
   for (let i = 1; i < num; i++) {
@@ -69,8 +82,8 @@ async function seed() {
     })
   )
   await Promise.all(
-    items.map(item => {
-      return Item.create(item)
+    yachts.map(yacht => {
+      return Item.create(yacht)
     })
   )
   await Promise.all(

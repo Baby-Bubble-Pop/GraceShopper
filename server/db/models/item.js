@@ -16,6 +16,9 @@ const Item = db.define('item', {
       return Number(parseFloat(this.getDataValue('price')).toFixed(2))
     }
   },
+  VAT: {
+    type: Sequelize.DECIMAL
+  },
   rating: {
     type: Sequelize.DECIMAL(2, 1),
     validate: {
@@ -29,14 +32,29 @@ const Item = db.define('item', {
   quantity: {
     type: Sequelize.INTEGER
   },
+  grossRegisteredTonnage: {
+    type: Sequelize.INTEGER
+  },
+  guests: {
+    type: Sequelize.INTEGER
+  },
+  beam: {
+    type: Sequelize.DECIMAL
+  },
+  draft: {
+    type: Sequelize.DECIMAL
+  },
+  length: {
+    type: Sequelize.DECIMAL
+  },
   image: {
     type: Sequelize.TEXT,
     defaultValue:
-      'https://upload.wikimedia.org/wikipedia/commons/4/4f/3_D-Box.jpg'
+      'https://www.esquireme.com/public/styles/full_img/public/images/2019/08/04/jeff-bezos-yacht.jpg'
   }
 })
 
-//turns price into # of pennies
+// turns price into # of pennies
 // Item.addHook('beforeCreate', (item, options) => {
 //   item.price = Number(parseFloat(item.price).toFixed(2))
 // })

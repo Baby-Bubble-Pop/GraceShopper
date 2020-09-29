@@ -1,5 +1,8 @@
+//loads global document and enables calling mount()
+import 'jsdom-global/register'
+
 import React from 'react'
-import Enzyme, {shallow} from 'enzyme'
+import Enzyme, {shallow, mount} from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import {expect} from 'chai'
 
@@ -9,6 +12,7 @@ Enzyme.configure({adapter: new Adapter()})
 
 describe('UserProfile', () => {
   let wrapper
+  let mounted
 
   const testUser = {
     id: 1,
@@ -19,14 +23,14 @@ describe('UserProfile', () => {
 
   beforeEach(() => {
     wrapper = shallow(<DisconnectedUserProfile {...testUser} />)
+    mounted = mount(<DisconnectedUserProfile {...testUser} />)
   })
 
   it('renders user data passed in as props', () => {
     expect(wrapper.find('.user-profile').text()).include('John')
   })
 
-  it('testing mount', () => {
-    // const mounted = mount(<disconnectedUserProfile user={testUser} />)
-    // expect(mounted).to.include.text('John@email.com')
+  it('testing mounted component', () => {
+    expect(mounted.find('.user-profile').text()).include('John')
   })
 })
