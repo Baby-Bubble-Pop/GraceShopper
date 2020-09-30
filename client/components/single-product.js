@@ -72,7 +72,7 @@ export class SingleProduct extends React.Component {
         <p>Quantity: {quantity}</p>
         {this.props.user.role === 'admin' ? (
           <div>
-            <Link to="/editProduct">
+            <Link to={`/products/${this.props.item.id}/edit`}>
               <button type="submit">EDIT PRODUCT</button>
             </Link>
           </div>

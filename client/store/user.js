@@ -29,6 +29,7 @@ export const me = () => async dispatch => {
     const res = await axios.get('/auth/me')
     const cartRes = await axios.get(`/api/users/${res.data.id}`)
     res.data.cart = cartRes.data
+    res.data.purchaseHistory = JSON.parse(res.data.purchaseHistory)
     dispatch(getUser(res.data || defaultUser))
   } catch (err) {
     console.error(err)
@@ -55,6 +56,18 @@ export const deleteFromCart = (itemId, userId) => async dispatch => {
     await axios.delete(`/api/users/deleteItem/${itemId}`)
     const res = await axios.get('/auth/me')
     res.data.cart = await axios.get(`/api/users/${userId}`)
+    dispatch(getUser(res.data || defaultUser))
+  } catch (error) {
+    console.error(error)
+  }
+}
+export const clearCart = cart => async dispatch => {
+  try {
+    cart.map(async item => {
+      await axios.delete(`/api/users/deleteItem/${item.id}`)
+    })
+    const res = await axios.get('/auth/me')
+    res.data.cart = await axios.get(`/api/users/${res.data.id}`)
     dispatch(getUser(res.data || defaultUser))
   } catch (error) {
     console.error(error)

@@ -1,4 +1,5 @@
 import axios from 'axios'
+import history from '../history'
 
 //INITIAL STATE
 const singleItem = {}
@@ -31,8 +32,9 @@ export const decrementQuantity = (itemId, quantity) => async dispatch => {
 }
 export const editSingleItem = item => async dispatch => {
   try {
-    const response = axios.put(`/api/items/${item.id}`, item)
+    const response = await axios.put(`/api/items/${item.id}`, item)
     dispatch(getSingleItem(response.data))
+    history.push(`/products/${item.id}`)
   } catch (error) {
     console.error('Error in editSingleItem thunk creator', error)
     throw error

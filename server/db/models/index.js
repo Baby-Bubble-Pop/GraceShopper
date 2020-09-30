@@ -1,6 +1,9 @@
 const User = require('./user')
 const Item = require('./item')
 const Cart = require('./cart')
+const BillingInfo = require('./billingInfo')
+const ShippingInfo = require('./shippingInfo')
+const Order = require('./Order')
 
 User.belongsToMany(Item, {
   through: {
@@ -30,9 +33,16 @@ Item.hasMany(Cart)
 Cart.belongsTo(Item)
 User.hasOne(Cart)
 Cart.belongsTo(User)
+User.hasOne(ShippingInfo, {foreignKey: 'userId', allowNull: false})
+ShippingInfo.belongsTo(User)
+User.hasOne(BillingInfo, {foreignKey: 'userId', allowNull: false})
+BillingInfo.belongsTo(User)
 
 module.exports = {
   User,
   Item,
-  Cart
+  Cart,
+  BillingInfo,
+  ShippingInfo,
+  Order
 }
