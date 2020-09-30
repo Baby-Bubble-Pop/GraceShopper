@@ -10,7 +10,6 @@ class GuestCart extends React.Component {
     }
   }
   render() {
-    console.log('RENDERING')
     let totalPrice = this.props.guestCart.reduce((sum, itemInCart) => {
       return sum + itemInCart.price * itemInCart.quantity
     }, 0)

@@ -70,7 +70,6 @@ router.put('/:id', isAdmin, async (req, res, next) => {
     })
     if (updatedItemCount === 1) {
       res.send(updatedItem[0])
-      // res.redirect("/items/" + updatedItem[0].id);
     }
   } catch (err) {
     next(err)

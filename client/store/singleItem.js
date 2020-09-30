@@ -29,6 +29,15 @@ export const decrementQuantity = (itemId, quantity) => async dispatch => {
     throw error
   }
 }
+export const editSingleItem = item => async dispatch => {
+  try {
+    const response = axios.put(`/api/items/${item.id}`, item)
+    dispatch(getSingleItem(response.data))
+  } catch (error) {
+    console.error('Error in editSingleItem thunk creator', error)
+    throw error
+  }
+}
 
 //REDUCER
 export default function(state = singleItem, action) {

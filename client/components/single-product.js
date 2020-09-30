@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 import {fetchSingleItem} from '../store/singleItem'
 import {addToCart, me} from '../store/user'
 import {addItem, updateCart} from '../store/guestCart'
@@ -69,6 +70,15 @@ export class SingleProduct extends React.Component {
         <div>Rating: {rating}</div>
         <p>Description: {description}</p>
         <p>Quantity: {quantity}</p>
+        {this.props.user.role === 'admin' ? (
+          <div>
+            <Link to="/editProduct">
+              <button type="submit">EDIT PRODUCT</button>
+            </Link>
+          </div>
+        ) : (
+          <div />
+        )}
       </div>
     )
   }
