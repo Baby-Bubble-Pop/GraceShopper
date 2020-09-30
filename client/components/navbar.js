@@ -6,11 +6,11 @@ import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn, role}) => (
   <div>
-    <h1>BOILERMAKER</h1>
     <nav>
+      <h1 id="navbar">FULLSTACK YACHT CLUB</h1>
       {isLoggedIn ? (
         role === 'admin' ? (
-          <div>
+          <nav className="links">
             {/* The navbar will show these links after you log in and are an admin */}
             <Link to="/home">Home</Link>
             <Link to="/products">All Products</Link>
@@ -20,9 +20,9 @@ const Navbar = ({handleClick, isLoggedIn, role}) => (
             <a href="#" onClick={handleClick}>
               Logout
             </a>
-          </div>
+          </nav>
         ) : (
-          <div>
+          <nav className="links">
             {/* The navbar will show these links after you log in */}
             <Link to="/home">Home</Link>
             <Link to="/products">All Products</Link>
@@ -31,16 +31,16 @@ const Navbar = ({handleClick, isLoggedIn, role}) => (
             <a href="#" onClick={handleClick}>
               Logout
             </a>
-          </div>
+          </nav>
         )
       ) : (
-        <div>
+        <nav className="links">
           {/* The navbar will show these links before you log in */}
           <Link to="/products">All Products</Link>
           <Link to="/guestcart">Cart</Link>
           <Link to="/login">Login</Link>
           <Link to="/signup">Sign Up</Link>
-        </div>
+        </nav>
       )}
     </nav>
     <hr />

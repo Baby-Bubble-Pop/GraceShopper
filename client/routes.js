@@ -15,7 +15,8 @@ import {
   CheckedOutShipping,
   CheckedOutBilling,
   CheckedOutConfirmed,
-  AddProduct
+  AddProduct,
+  OrderConfirmed
 } from './components'
 
 import {me} from './store'
@@ -42,6 +43,7 @@ class Routes extends Component {
         <Route path="/checkoutShipping" component={CheckedOutShipping} />
         <Route path="/checkoutBilling" component={CheckedOutBilling} />
         <Route path="/checkoutConfirm" component={CheckedOutConfirmed} />
+        <Route path="/orderConfirmed" component={OrderConfirmed} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}

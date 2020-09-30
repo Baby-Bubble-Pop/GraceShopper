@@ -57,59 +57,79 @@ class CheckoutShipping extends React.Component {
     } = this.state
     return (
       <div>
-        <h1>CHECKOUT</h1>
+        <h1 id="pageHeaders">CHECKOUT</h1>
 
-        <h3>Shipping Address</h3>
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor="streetAddressLine1">Address Line 1</label>
+        <h3 id="checkout">Shipping Address</h3>
+        <form id="checkout" onSubmit={this.handleSubmit}>
+          <label id="checkout" htmlFor="streetAddressLine1">
+            Address Line 1
+          </label>
           <input
+            id="checkout"
             type="text"
             name="streetAddressLine1"
             value={streetAddressLine1}
             onChange={this.handleChange}
           />
 
-          <label htmlFor="streetAddressLine2">Address Line 2</label>
+          <label id="checkout" htmlFor="streetAddressLine2">
+            Address Line 2
+          </label>
           <input
+            id="checkout"
             type="text"
             name="streetAddressLine2"
             value={streetAddressLine2}
             onChange={this.handleChange}
           />
 
-          <label htmlFor="aptSuiteNo">Apt/Suite No</label>
+          <label id="checkout" htmlFor="aptSuiteNo">
+            Apt/Suite No
+          </label>
           <input
+            id="checkout"
             type="text"
             name="aptSuiteNo"
             value={aptSuiteNo}
             onChange={this.handleChange}
           />
 
-          <label htmlFor="city">City</label>
+          <label id="checkout" htmlFor="city">
+            City
+          </label>
           <input
+            id="checkout"
             type="text"
             name="city"
             value={city}
             onChange={this.handleChange}
           />
 
-          <label htmlFor="state">State</label>
+          <label id="checkout" htmlFor="state">
+            State
+          </label>
           <input
+            id="checkout"
             type="text"
             name="state"
             value={state}
             onChange={this.handleChange}
           />
 
-          <label htmlFor="zipCode">Zip Code</label>
+          <label id="checkout" htmlFor="zipCode">
+            Zip Code
+          </label>
           <input
+            id="checkout"
             type="text"
             name="zipCode"
             value={zipCode}
             onChange={this.handleChange}
           />
 
-          <button type="submit">MOVE ON TO PAYMENT</button>
+          <button className="submitCheckout" type="submit">
+            MOVE ON TO PAYMENT
+          </button>
         </form>
       </div>
     )
