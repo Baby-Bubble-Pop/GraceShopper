@@ -18,6 +18,7 @@ class CheckoutConfirm extends React.Component {
       this.props.submitOrder(this.props.order)
       this.props.clearCart(this.props.order.cart.products)
       this.setState({completed: true})
+      this.props.history.push('/orderConfirmed')
     } catch (error) {
       console.error('Something went wrong with saving your billing info!')
     }
