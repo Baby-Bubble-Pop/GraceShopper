@@ -56,7 +56,7 @@ class Cart extends React.Component {
                         />
                       </div>
                       <button className="addQuant" type="submit">
-                        ADD QUANTITY
+                        EDIT QUANTITY
                       </button>
                     </form>
                   </div>

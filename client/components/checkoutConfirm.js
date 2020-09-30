@@ -26,42 +26,84 @@ class CheckoutConfirm extends React.Component {
   render() {
     return (
       <div>
-        {!this.state.completed ? <h1>CHECKOUT</h1> : <h1>Order Receipt</h1>}
-        <h3>Total Price: ${this.props.order.cart.totalPrice}</h3>
+        <h1 id="pageHeaders">CONFIRM ORDER</h1>
+        {!this.state.completed ? (
+          <h3 id="checkout">CHECKOUT</h3>
+        ) : (
+          <h3 id="checkout">Order Receipt</h3>
+        )}
+        <h2 id="totalPriceConfirm">
+          Total Price: ${(this.props.order.cart.totalPrice / 10000000).toFixed(
+            2
+          )}M
+        </h2>
         {this.props.order.cart.products.map(product => {
           return (
-            <div key={product.id}>
-              <p>Name: {product.name}</p>
-              <p>Price: {product.price}</p>
-              <p>Quantity: {product.quantity}</p>
+            <div className="confirm-Table cart-Table--6cols" key={product.id}>
+              <div className="cart-Table-single">
+                {' '}
+                <img src={product.image} />{' '}
+              </div>
+              <div className="confirm-Table-single">
+                <p>{product.name}</p>
+              </div>
+              <div className="confirm-Table-single">
+                <p>${(product.price / 10000000).toFixed(2)}M</p>
+              </div>
+              <div className="confirm-Table-single">
+                <p>Quantity: {product.quantity}</p>
+              </div>
             </div>
           )
         })}
 
-        <hr />
+        <div className="confirmation">
+          <h3 id="confirmation">Shipping Address</h3>
+          <p>
+            <i>Address Line 1:</i>{' '}
+            {this.props.order.shippingInfo.streetAddressLine1}
+          </p>
+          <p>
+            <i>Address Line 2:</i>
+            {this.props.order.shippingInfo.streetAddressLine2}
+          </p>
+          <p>
+            <i>Apt/Suite No:</i> {this.props.order.shippingInfo.aptSuiteNo}
+          </p>
+          <p>
+            <i>City:</i> {this.props.order.shippingInfo.city}
+          </p>
+          <p>
+            <i>State:</i> {this.props.order.shippingInfo.state}
+          </p>
+          <p>
+            <i>Zip Code:</i>
+            {this.props.order.shippingInfo.zipCode}
+          </p>
+        </div>
 
-        <h3>Shipping Address</h3>
-        <p>
-          Address Line 1: {this.props.order.shippingInfo.streetAddressLine1}
-        </p>
-        <p>Address Line 2:{this.props.order.shippingInfo.streetAddressLine2}</p>
-        <p>Apt/Suite No: {this.props.order.shippingInfo.aptSuiteNo}</p>
-        <p>City: {this.props.order.shippingInfo.city}</p>
-        <p>State: {this.props.order.shippingInfo.state}</p>
-        <p>Zip Code:{this.props.order.shippingInfo.zipCode}</p>
-
-        <hr />
-        <h3>Billing Info</h3>
-        <p>Name: {this.props.order.billingInfo.name}</p>
-        <p>
-          Credit Card Number:{' '}
-          {this.props.order.billingInfo.creditCardNumber % 10000}
-        </p>
-        <p>CVV: {this.props.order.billingInfo.cvv}</p>
-        <p>Expiration Date: {this.props.order.billingInfo.expirationDate}</p>
+        <div className="confirmation">
+          <h3 id="confirmation">Billing Info</h3>
+          <p>
+            <i>Name:</i> {this.props.order.billingInfo.name}
+          </p>
+          <p>
+            <i>Credit Card Number:</i>{' '}
+            {this.props.order.billingInfo.creditCardNumber % 10000}
+          </p>
+          <p>
+            <i>CVV:</i> {this.props.order.billingInfo.cvv}
+          </p>
+          <p>
+            <i>Expiration Date:</i>{' '}
+            {this.props.order.billingInfo.expirationDate}
+          </p>
+        </div>
         {!this.state.completed ? (
           <form onSubmit={this.handleSubmit}>
-            <button type="submit">PLACE ORDER</button>
+            <button className="finalSubmit" type="submit">
+              PLACE ORDER
+            </button>
           </form>
         ) : (
           ''

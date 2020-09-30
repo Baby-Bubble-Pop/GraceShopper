@@ -30,90 +30,100 @@ class AddProduct extends React.Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
+        <form id="addProduct" onSubmit={this.handleSubmit}>
+          <h3 id="addProduct">Add New Product</h3>
           <div>
-            <label htmlFor="name">
+            <label id="addProduct" htmlFor="name">
               <small>Name</small>
             </label>
-            <input name="name" type="text" required />
+            <input id="addProduct" name="name" type="text" required />
           </div>
           <div>
-            <label htmlFor="description">
+            <label id="addProduct" htmlFor="description">
               <small>Description</small>
             </label>
-            <input name="description" type="text" />
+            <input id="addProduct" name="description" type="text" />
           </div>
           <div>
-            <label htmlFor="price">
+            <label id="addProduct" htmlFor="price">
               <small>Price</small>
             </label>
-            <input name="price" type="text" required />
+            <input id="addProduct" name="price" type="text" required />
           </div>
           <div>
-            <label htmlFor="vat">
+            <label id="addProduct" htmlFor="vat">
               <small>VAT</small>
             </label>
-            <input name="vat" type="text" required />
+            <input id="addProduct" name="vat" type="text" required />
           </div>
           <div>
-            <label htmlFor="rating">
+            <label id="addProduct" htmlFor="rating">
               <small>Rating</small>
             </label>
-            <input name="rating" type="text" min="0" max="5" required />
+            <input
+              id="addProduct"
+              name="rating"
+              type="text"
+              min="0"
+              max="5"
+              required
+            />
           </div>
           <div>
-            <label htmlFor="quantity">
+            <label id="addProduct" htmlFor="quantity">
               <small>Quantity</small>
             </label>
-            <input name="quantity" type="text" required />
+            <input id="addProduct" name="quantity" type="text" required />
           </div>
           <div>
-            <label htmlFor="grossTonnage">
+            <label id="addProduct" htmlFor="grossTonnage">
               <small>Gross Registered Tonnage</small>
             </label>
-            <input name="grossTonnage" type="text" required />
+            <input id="addProduct" name="grossTonnage" type="text" required />
           </div>
           <div>
-            <label htmlFor="guests">
+            <label id="addProduct" htmlFor="guests">
               <small>Guests</small>
             </label>
-            <input name="guests" type="text" required />
+            <input id="addProduct" name="guests" type="text" required />
           </div>
           <div>
-            <label htmlFor="beam">
+            <label id="addProduct" htmlFor="beam">
               <small>Beam</small>
             </label>
-            <input name="beam" type="text" required />
+            <input id="addProduct" name="beam" type="text" required />
           </div>
           <div>
-            <label htmlFor="draft">
+            <label id="addProduct" htmlFor="draft">
               <small>Draft</small>
             </label>
-            <input name="draft" type="text" required />
+            <input id="addProduct" name="draft" type="text" required />
           </div>
           <div>
-            <label htmlFor="length">
+            <label id="addProduct" htmlFor="length">
               <small>Length</small>
             </label>
-            <input name="length" type="text" required />
+            <input id="addProduct" name="length" type="text" required />
           </div>
           <div>
-            <label htmlFor="image">
+            <label id="addProduct" htmlFor="image">
               <small>Image URL</small>
             </label>
-            <input name="image" type="text" />
+            <input id="addProduct" name="image" type="text" />
           </div>
           <div>
-            <label htmlFor="category">
+            <label id="addProduct" htmlFor="category">
               <small>Category</small>
             </label>
-            <select name="category">
+            <select id="addProduct" name="category">
               <option>Big</option>
               <option>Huge</option>
               <option>Mega</option>
             </select>
           </div>
-          <button type="submit">SUBMIT</button>
+          <button className="submitCheckout" type="submit">
+            SUBMIT
+          </button>
         </form>
       </div>
     )

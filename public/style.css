@@ -1,6 +1,6 @@
 body {
   font-family: Helvetica;
-  background: #fcfaf9;
+  background: #f5f3f2;
   height: auto;
   padding: 0;
   margin: 0;
@@ -100,11 +100,53 @@ nav.links {
 .cart-Table--6cols > .cart-Table-single {
   width: 16.66%;
 }
+.confirm-Table {
+  display: flex;
+  flex-wrap: flex;
+  align-items: center;
+  margin-top: 10px;
+  margin-left: 110px;
+  margin-right: 110px;
+  width: 86%;
+  background-color: #ffffff;
+  justify-self: center;
+  align-content: center;
+  border-bottom: 0.2px solid #33516c56;
+}
+
+.confirm-Table-single {
+  box-sizing: border-box;
+  flex-grow: 1;
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  margin-right: 20px;
+}
+
+.confirm-Table-single img {
+  margin-top: 10px;
+  margin-left: 10px;
+  width: 150px;
+}
+
+.confirm-Table--4cols > .confirm-Table-single {
+  width: 25%;
+}
 
 h2#totalPrice {
   display: flex;
   justify-content: right;
   width: 89.3%;
+  margin-right: 100px;
+  text-align: right;
+  letter-spacing: 0.05em;
+}
+
+h2#totalPriceConfirm {
+  display: flex;
+  justify-content: center;
+  width: 100%;
   margin-right: 100px;
   text-align: right;
   letter-spacing: 0.05em;
@@ -181,6 +223,20 @@ button.checkout {
   text-align: center;
 }
 
+button.finalSubmit {
+  background-color: #333333;
+  padding-left: 50px;
+  padding-right: 50px;
+  font-size: 1em;
+  color: white;
+  display: flex;
+  margin: auto;
+  margin-top: 30px;
+  margin-bottom: 100px;
+  text-decoration: none !important;
+  text-align: center;
+}
+
 button.login,
 button.edit {
   background-color: #333333;
@@ -192,6 +248,7 @@ button.edit {
   margin: auto;
   text-decoration: none !important;
   text-align: center;
+  margin-bottom: 50px;
 }
 
 button:hover {
@@ -224,14 +281,17 @@ button:hover {
   align-items: center;
 } */
 
-.profile {
+.profile,
+.confirmation {
   background-color: white;
   box-shadow: 9px 10px 12px -4px rgba(40, 40, 40, 0.064);
-  border-radius: 20px;
+  border-radius: 10px;
   text-align: center;
   margin-left: 110px;
   margin-right: 110px;
+  margin-top: 40px;
   padding: 50px;
+  letter-spacing: 0.1em;
 }
 
 img#allProducts {
@@ -274,6 +334,14 @@ h3#welcome {
   letter-spacing: 0.05em;
 }
 
+h3#confirmation {
+  margin-top: 20px;
+}
+
+h3#addProduct {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 h1#pageHeaders {
   margin-top: 150px;
   display: flex;
@@ -287,6 +355,12 @@ h1#pageHeaders {
 
 h1#navbar {
   width: 400px;
+}
+
+input[type='text'],
+input[type='password'] {
+  text-align: center;
+  font-size: 20px;
 }
 
 input[type='text'],
@@ -338,6 +412,7 @@ form#login {
 
 input#login,
 input#edit {
+  background-color: #ffffffb0;
   display: flex;
   margin: auto;
   width: 600px;
@@ -367,4 +442,46 @@ a#login {
   justify-content: center;
   text-align: center;
   color: white;
+}
+
+form#addProduct {
+  margin-top: 150px;
+  margin-left: 140px;
+  margin-right: 140px;
+  padding: 20px;
+  background-color: #7978871e;
+  box-shadow: 9px 10px 12px -4px rgba(40, 40, 40, 0.064);
+}
+
+input#addProduct {
+  background-color: #ffffffb0;
+  display: flex;
+  margin: auto;
+  width: 600px;
+  height: 40px;
+  border-radius: 10px;
+  border: 0.2px solid #797887;
+  margin-bottom: 25px;
+}
+
+select#addProduct {
+  background-color: #ffffffb0;
+  display: flex;
+  margin: auto;
+  width: 600px;
+  height: 40px;
+  border-radius: 10px;
+  border: 0.2px solid #797887;
+  margin-bottom: 25px;
+}
+
+label#addProduct {
+  width: 100%;
+  letter-spacing: 0.15em;
+  text-align: center;
+  display: flex;
+  margin-bottom: 5px;
+  margin-top: 10px;
+  justify-content: center;
+  align-items: center;
 }

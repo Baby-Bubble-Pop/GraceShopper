@@ -58,7 +58,7 @@ class GuestCart extends React.Component {
                     <input name="quantity" type="number" min="0" />
                   </div>
                   <button className="addQuant" type="submit">
-                    ADD QUANTITY
+                    EDIT QUANTITY
                   </button>
                 </form>
               </div>
