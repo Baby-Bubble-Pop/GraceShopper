@@ -127,7 +127,9 @@ class CheckoutShipping extends React.Component {
             onChange={this.handleChange}
           />
 
-          <button type="submit">MOVE ON TO PAYMENT</button>
+          <button className="submitCheckout" type="submit">
+            MOVE ON TO PAYMENT
+          </button>
         </form>
       </div>
     )

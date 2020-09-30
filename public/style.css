@@ -87,15 +87,27 @@ nav.links {
   width: 100%;
   overflow: hidden;
   margin-bottom: 5px;
+  margin-left: 5px;
+  margin-right: 20px;
 }
 
 .cart-Table-single img {
+  margin-top: 10px;
   margin-left: 10px;
   width: 200px;
 }
 
 .cart-Table--6cols > .cart-Table-single {
   width: 16.66%;
+}
+
+h2#totalPrice {
+  display: flex;
+  justify-content: right;
+  width: 89.3%;
+  margin-right: 100px;
+  text-align: right;
+  letter-spacing: 0.05em;
 }
 
 .single-Product {
@@ -111,10 +123,11 @@ nav.links {
   flex-grow: 1;
   width: 100%;
   overflow: hidden;
+  margin-left: 50px;
 }
 
 .single-Product-single img {
-  width: 500px;
+  width: 600px;
   margin-left: 80px;
 }
 
@@ -188,12 +201,15 @@ button:hover {
 .submitCheckout {
   background-color: #33516c;
   color: white;
+  display: flex;
+  margin: auto;
 }
 
 .addQuant {
   background: none;
   font-size: none;
   text-decoration: underline;
+  margin-top: -5px;
   margin-left: 5px;
 }
 
@@ -201,12 +217,12 @@ button:hover {
   background: none;
 }
 
-.checkoutContainer {
+/* .checkoutContainer {
   display: flex;
   margin: auto;
   justify-content: center;
   align-items: center;
-}
+} */
 
 .profile {
   background-color: white;

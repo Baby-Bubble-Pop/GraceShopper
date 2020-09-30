@@ -85,7 +85,9 @@ class CheckoutBilling extends React.Component {
             onChange={this.handleChange}
           />
 
-          <button type="submit">CONFIRM ORDER</button>
+          <button className="submitCheckout" type="submit">
+            CONFIRM ORDER
+          </button>
         </form>
       </div>
     )

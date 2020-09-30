@@ -17,60 +17,76 @@ class GuestCart extends React.Component {
     }, 0)
     return (
       <div>
-        <h1>Welcome to Your Cart!</h1>
+        <h1 id="pageHeaders">Welcome to Your Cart!</h1>
         <Link to="/checkoutShipping">
-          <button type="submit">CHECKOUT</button>
+          <button className="checkout" type="submit">
+            CHECKOUT
+          </button>
         </Link>
         {this.props.guestCart.map(item => {
           return (
-            <div key={item.id}>
-              <p>Name: {item.name}</p>
-              <p>Price: ${item.price}</p>
-              <p>Quantity: {item.quantity}</p>
-              <form
-                onSubmit={e => {
-                  e.preventDefault()
-                  for (let i = 0; i < this.props.guestCart.length; ++i) {
-                    if (item.id === this.props.guestCart[i].id) {
-                      this.props.guestCart[i].quantity =
-                        Number(this.props.guestCart[i].quantity) +
-                        Number(e.target.quantity.value)
-                      this.props.updateCart(this.props.guestCart)
+            <div className="cart-Table cart-Table--6cols" key={item.id}>
+              <div className="cart-Table-single">
+                <img src={item.image} />
+              </div>
+              <div className="cart-Table-single">
+                <p>{item.name}</p>
+              </div>
+              <div className="cart-Table-single">
+                <p>${(item.price / 10000000).toFixed(2)}M</p>
+              </div>
+              <div className="cart-Table-single">
+                <p>Quantity: {item.quantity}</p>
+              </div>
+              <div className="cart-Table-single">
+                <form
+                  onSubmit={e => {
+                    e.preventDefault()
+                    for (let i = 0; i < this.props.guestCart.length; ++i) {
+                      if (item.id === this.props.guestCart[i].id) {
+                        this.props.guestCart[i].quantity =
+                          Number(this.props.guestCart[i].quantity) +
+                          Number(e.target.quantity.value)
+                        this.props.updateCart(this.props.guestCart)
+                      }
                     }
-                  }
-                  this.setState({rerender: null})
-                  e.target.quantity.value = ''
-                }}
-              >
-                <div>
-                  <label htmlFor="quantity">
-                    <small>Quantity</small>
-                  </label>
-                  <input name="quantity" type="number" min="0" />
-                </div>
-                <button type="submit">ADD QUANTITY</button>
-              </form>
-              <button
-                type="submit"
-                onClick={() => {
-                  let index = 0
-                  for (let i = 0; i < this.props.guestCart.length; ++i) {
-                    if (item.id === this.props.guestCart[i].id) {
-                      index = i
+                    this.setState({rerender: null})
+                    e.target.quantity.value = ''
+                  }}
+                >
+                  <div>
+                    <input name="quantity" type="number" min="0" />
+                  </div>
+                  <button className="addQuant" type="submit">
+                    ADD QUANTITY
+                  </button>
+                </form>
+              </div>
+              <div className="cart-Table-single">
+                <button
+                  type="submit"
+                  onClick={() => {
+                    let index = 0
+                    for (let i = 0; i < this.props.guestCart.length; ++i) {
+                      if (item.id === this.props.guestCart[i].id) {
+                        index = i
+                      }
                     }
-                  }
-                  let cart = this.props.guestCart
-                  cart.splice(index, 1)
-                  this.props.updateCart(cart)
-                  this.setState({rerender: null})
-                }}
-              >
-                DELETE
-              </button>
+                    let cart = this.props.guestCart
+                    cart.splice(index, 1)
+                    this.props.updateCart(cart)
+                    this.setState({rerender: null})
+                  }}
+                >
+                  DELETE
+                </button>
+              </div>
             </div>
           )
         })}
-        <h2>Total Price: ${totalPrice.toFixed(2)}</h2>
+        <h2 id="totalPrice">
+          Total Price: ${(totalPrice / 10000000).toFixed(2)}M
+        </h2>
       </div>
     )
   }
