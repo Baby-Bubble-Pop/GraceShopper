@@ -6,16 +6,54 @@ import {addToCart, me} from '../store/user'
 import {addItem, updateCart} from '../store/guestCart'
 
 export class AllProducts extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      items: this.props.items
+    }
+    this.handleChange = this.handleChange.bind(this)
+  }
+
   componentDidMount() {
     this.props.fetchItems()
     this.props.getUser()
   }
+
+  handleChange(e) {
+    e.preventDefault()
+    let filteredItems = this.props.items.filter(item => {
+      return item.category === e.target.value
+    })
+    if (e.target.value !== 'all') {
+      this.setState({
+        items: filteredItems
+      })
+    } else {
+      this.setState({
+        items: this.props.items
+      })
+    }
+  }
+
   render() {
+    let stateItems = this.state.items
+    let propsItems = this.props.items
     return (
       <div>
         <h1 id="pageHeaders">ALL FULLSTACK YACHTS</h1>
+        <select
+          name="category"
+          id="addProduct"
+          onChange={this.handleChange}
+          value={this.state.items}
+        >
+          <option value="all">All</option>
+          <option value="big">Big</option>
+          <option value="huge">Huge</option>
+          <option value="mega">Mega</option>
+        </select>
         <div className="all-product-container">
-          {this.props.items.map(item => {
+          {stateItems.map(item => {
             return (
               <div className="product-list" key={item.id}>
                 <Link to={`/products/${item.id}`}>
@@ -24,6 +62,7 @@ export class AllProducts extends React.Component {
                 <div className="product-info">
                   <p>{item.name}</p>
                   <p id="price">${(item.price / 10000000).toFixed(2)}M</p>
+                  <p>Type: {item.category}</p>
                   <form
                     onSubmit={e => {
                       e.preventDefault()
